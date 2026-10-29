@@ -217,6 +217,32 @@ hr.s{border:0;border-top:1px solid var(--line);margin:12px 0}
 .subnav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -18px 4px;padding:2px 18px 6px;position:sticky;top:0;z-index:3;background:var(--bg)}
 .subnav::-webkit-scrollbar{display:none}
 .ttl{font-size:30px;font-weight:600;margin:12px 0 2px;letter-spacing:-.3px}
+a.pill.amap{background:var(--acc-soft);color:var(--acc-text);text-decoration:none}a.pill.amap svg{width:14px;height:14px}.feat .bot a.pill.amap{flex:none}a.btn{text-decoration:none}
+.ph-row.tap{cursor:pointer;grid-template-columns:auto 1fr auto}
+.ph-row.tap .en,.ph-row.tap .zh,.ph-row.tap .py{grid-column:2}
+.ph-row.tap .en{grid-row:1}
+.ph-row.tap .ph-ic{grid-column:1;grid-row:1/4;align-self:center;margin-right:2px}
+.ph-row .ph-ic:empty{display:none}
+.ph-row.tap .ph-eye{grid-column:3;grid-row:1/4;align-self:center;width:38px;height:38px;border-radius:50%;background:var(--tile);display:grid;place-items:center}
+.ph-row.tap:active{opacity:.6}
+svg.payic{width:34px;height:34px;flex:none;display:block}
+.cap-h{font-size:12px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;padding:12px 0 2px}
+ol.steps{margin:8px 0 0;padding-left:20px}ol.steps li{margin:6px 0;font-size:14px;color:var(--t2)}ol.steps b{color:var(--ink)}
+.bt-out{background:var(--dark);color:var(--dark-fg);border-radius:22px;padding:16px;margin-bottom:6px}
+.bt-zh{font-size:24px;font-weight:700;line-height:1.35;margin:6px 0}
+.bt-py{font-size:14px;color:var(--acc)}html[data-theme=dark] .bt-py{color:var(--acc-text)}
+.bt-en{font-size:13px;opacity:.75;margin-top:4px}
+.bt-lbl{font-size:13px;font-weight:700;margin:14px 2px 6px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt-b{background:var(--tile);border-radius:14px;padding:7px 11px;text-align:left;border:1.5px solid transparent}
+.opt-b .zh{display:block;font-size:16px;font-weight:600}.opt-b small{display:block;font-size:11px;color:var(--mut)}
+.opt-b.on{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}.opt-b.on small{color:inherit;opacity:.75}
+.osm-r{background:var(--tile);border-radius:18px;padding:12px;margin-top:8px}
+.osm-pick{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:10px 12px;margin-top:6px}
+.osm-pick .tiny{display:block}
+.pay-step{display:flex;gap:12px;align-items:flex-start;margin-top:12px}
+.full .fpy{font-size:20px;color:#4a6a00;margin-top:16px}
+.py,.bt-py,.fpy,.pyf,ol.steps,.tea-note{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif}
 a.lk{color:var(--acc-text);font-weight:600}
 </style>
 </head>
@@ -254,6 +280,8 @@ sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.
 check:'<path d="M20 6 9 17l-5-5"/>',
 x:'<path d="M18 6 6 18M6 6l12 12"/>',
 star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2-6.2 3.2L7 14.2 2 9.3l6.9-1z"/>',
+map:'<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',
+heart:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.6 1-1.1a5.5 5.5 0 0 0 0-7.7z"/>',
 arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>'
 };
 function I(n,c){return '<svg class="i'+(c?' '+c:'')+'" viewBox="0 0 24 24" aria-hidden="true">'+(P[n]||'')+'</svg>'}
@@ -263,6 +291,20 @@ var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'
 function dObj(k){var p=k.split('-');return new Date(Date.UTC(+p[0],+p[1]-1,+p[2]))}
 function dLabel(k,long){var d=dObj(k);return (long?WD[d.getUTCDay()]+', ':'')+d.getUTCDate()+' '+MON[d.getUTCMonth()]}
 function todayKey(){return new Date(Date.now()+8*3600e3).toISOString().slice(0,10)}
+/* Amap (Gaode) links. Position order is lng,lat. */
+function amapUrl(o){var e=encodeURIComponent,name=o.kw||o.zh||o.name||o.en||'';
+ if(o.lat!=null&&o.lng!=null&&isFinite(o.lat)&&isFinite(o.lng))return 'https://uri.amap.com/marker?position='+(+o.lng)+','+(+o.lat)+'&name='+e(name)+'&src=feetrip&coordinate='+(o.coord||'wgs84')+'&callnative=1';
+ return 'https://uri.amap.com/search?keyword='+e(name)+'&city=310000&src=feetrip&callnative=1'}
+function amapA(o,label,cls){return '<a class="'+(cls||'pill amap')+'" href="'+esc(amapUrl(o))+'" target="_blank" rel="noopener">'+I('map')+esc(label||'Open in Amap')+'</a>'}
+/* Parse a pasted Google Maps link: name + coordinates (short maps.app.goo.gl links can't be expanded offline). */
+function parseGmaps(u){u=String(u||'').trim();var r={name:'',lat:null,lng:null,short:/goo\.gl\//i.test(u)};var m,dec=function(x){try{return decodeURIComponent(x.replace(/\+/g,' '))}catch(e){return x.replace(/\+/g,' ')}};
+ if((m=u.match(/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/))){r.lat=+m[1];r.lng=+m[2]}
+ else if((m=u.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/))){r.lat=+m[1];r.lng=+m[2]}
+ else if((m=u.match(/[?&](?:q|query|ll|destination|center)=(-?\d+(?:\.\d+)?)(?:,|%2C)\s*(-?\d+(?:\.\d+)?)/i))){r.lat=+m[1];r.lng=+m[2]}
+ if((m=u.match(/\/maps\/(?:place|search)\/([^\/@?]+)/)))r.name=dec(m[1]);
+ else if((m=u.match(/[?&](?:q|query)=([^&]+)/i))&&!/^-?\d+(\.\d+)?(,|%2C)/i.test(m[1]))r.name=dec(m[1]);
+ if(r.lat!=null&&(Math.abs(r.lat)>90||Math.abs(r.lng)>180)){r.lat=r.lng=null}
+ return r}
 
 /* ---------- Art ---------- */
 function skyline(id,mode){
@@ -313,6 +355,59 @@ var SPOTS=[
  {id:'h_xty',en:'Xiaotaoyuan Mosque area',zh:'小桃园清真寺',cat:['Food','Sights'],area:'52 Xiaotaoyuan St, near Yu Garden',metro:'Line 8 / 10 · Laoximen',c:'#1f8a5b',ic:'food',halal:true,d:'Historic mosque in the Old City; small halal eateries in the surrounding streets.'},
  {id:'h_huxi',en:'Huxi Mosque Friday market',zh:'沪西清真寺',cat:['Food','Sights'],area:'Lane 1328 Changde Rd, Putuo',metro:'Line 7 / 13 · Changshou Rd',c:'#1f8a5b',ic:'food',halal:true,d:'Friday street-food market outside the mosque (approx 10:00–16:00). Your trip\'s Friday is 4 Dec.'}
 ];
+/* ---------- Bubble tea + payments ---------- */
+var BT={
+ drink:[['奶茶','nǎichá','milk tea'],['鲜奶茶','xiān nǎichá','fresh-milk tea'],['水果茶','shuǐguǒ chá','fruit tea'],['柠檬茶','níngméng chá','lemon tea'],['纯茶','chún chá','plain tea'],['杨枝甘露','yángzhī gānlù','mango pomelo sago']],
+ size:[['中杯','zhōng bēi','medium'],['大杯','dà bēi','large']],
+ sugar:[['全糖','quán táng','full sugar'],['正常糖','zhèngcháng táng','normal sugar'],['七分糖','qī fēn táng','70% sugar'],['半糖','bàn táng','half sugar'],['五分糖','wǔ fēn táng','50% sugar'],['三分糖','sān fēn táng','30% sugar'],['微糖','wēi táng','a little sugar'],['不另外加糖','bú lìngwài jiā táng','no added sugar'],['无糖','wú táng','no sugar']],
+ ice:[['正常冰','zhèngcháng bīng','normal ice'],['少冰','shǎo bīng','less ice'],['微冰','wēi bīng','a little ice'],['去冰','qù bīng','no ice'],['常温','chángwēn','room temperature'],['温','wēn','warm'],['热','rè','hot']],
+ tops:[['珍珠','zhēnzhū','pearls (tapioca)'],['波霸','bōbà','big pearls'],['椰果','yēguǒ','coconut jelly'],['布丁','bùdīng','pudding'],['芋圆','yùyuán','taro balls'],['奶盖','nǎigài','milk / cheese foam'],['红豆','hóngdòu','red bean']],
+ go:[['堂食','tángshí','for here'],['带走','dàizǒu','to go'],['打包','dǎbāo','to go (packed)']]
+};
+var BT_SAMPLES=[['我要一杯大杯珍珠奶茶，半糖，少冰。','wǒ yào yì bēi dà bēi zhēnzhū nǎichá, bàn táng, shǎo bīng.','One large pearl milk tea, half sugar, less ice.'],
+ ['我要一杯中杯柠檬茶，三分糖，去冰，带走。','wǒ yào yì bēi zhōng bēi níngméng chá, sān fēn táng, qù bīng, dàizǒu.','One medium lemon tea, 30% sugar, no ice, to go.'],
+ ['可以加椰果吗？','kěyǐ jiā yēguǒ ma?','Can I add coconut jelly?'],['不要奶盖。','bú yào nǎigài.','No foam, please.'],['要热的。','yào rè de.','I\'d like it hot.']];
+var BT_ASK=[['要几分糖？','yào jǐ fēn táng?','How sweet? (they\'re asking your sugar level)'],['冰的还是热的？','bīng de háishi rè de?','Iced or hot?'],['要加料吗？','yào jiāliào ma?','Any toppings?'],['堂食还是带走？','tángshí háishi dàizǒu?','For here or to go?']];
+var BT_CHAINS=[['喜茶','Xǐchá','Heytea'],['奈雪的茶','Nàixuě de chá','Nayuki'],['霸王茶姬','Bàwáng Chájī','Chagee'],['蜜雪冰城','Mìxuě Bīngchéng','Mixue'],['CoCo都可','CoCo Dūkě','CoCo']];
+var PAY=[['可以用微信支付吗？','kěyǐ yòng Wēixìn Zhīfù ma?','Can I pay with WeChat Pay?','wx'],['可以用支付宝吗？','kěyǐ yòng Zhīfùbǎo ma?','Can I pay with Alipay?','ali'],['可以刷卡吗？','kěyǐ shuākǎ ma?','Can I pay by card?',''],
+ ['我扫你还是你扫我？','wǒ sǎo nǐ háishi nǐ sǎo wǒ?','Do I scan your code, or do you scan mine?',''],['我扫你。','wǒ sǎo nǐ.','I\'ll scan your code.',''],['你扫我吧。','nǐ sǎo wǒ ba.','You scan my code.',''],
+ ['付款码','fùkuǎn mǎ','Payment code (the QR you show)',''],['收款码','shōukuǎn mǎ','Merchant\'s receive code (the QR you scan)',''],['多少钱？','duōshao qián?','How much is it?',''],['可以开发票吗？','kěyǐ kāi fāpiào ma?','Can you issue an official receipt (fapiao)?','']];
+/* Original, simplified icons (not the official logos) */
+var ICON_WX='<svg class="payic" viewBox="0 0 40 40" aria-label="WeChat Pay"><rect width="40" height="40" rx="11" fill="#22B35E"/><path d="M20 9.5c-6.4 0-11.5 4.3-11.5 9.6 0 3 1.6 5.6 4.1 7.4l-1 3.9 4.4-2.3c1.2.4 2.6.6 4 .6 6.4 0 11.5-4.3 11.5-9.6S26.4 9.5 20 9.5z" fill="#fff"/><path d="m14.8 19.4 3.6 3.4 7-7" fill="none" stroke="#22B35E" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var ICON_ALI='<svg class="payic" viewBox="0 0 40 40" aria-label="Alipay"><rect width="40" height="40" rx="11" fill="#1677FF"/><text x="20" y="28.5" text-anchor="middle" font-size="22" font-weight="700" fill="#fff" font-family="PingFang SC,Noto Sans SC,Microsoft YaHei,sans-serif">支</text></svg>';
+function phRow(zh,py,en,icon){return '<div class="ph-row tap" role="button" tabindex="0" data-fz="'+esc(zh)+'" data-fp="'+esc(py)+'" data-fe="'+esc(en)+'">'+(icon?'<span class="ph-ic">'+icon+'</span>':'')+'<div class="en">'+esc(en)+'</div><div class="zh">'+esc(zh)+'</div><div class="py">'+esc(py)+'</div><span class="ph-eye">'+I('eye')+'</span></div>'}
+function btFind(f,zh){return BT[f].filter(function(x){return x[0]===zh})[0]}
+function btCompose(b){
+ var d=btFind('drink',b.drink),sz=btFind('size',b.size),su=btFind('sugar',b.sugar),ic=btFind('ice',b.ice),go=b.go?btFind('go',b.go):null,tops=b.tops.map(function(t){return btFind('tops',t)});
+ var hot={'温':['温的','wēn de','warm'],'热':['热的','rè de','hot']}[ic[0]]||ic;
+ var zh='我要一杯'+sz[0],py='wǒ yào yì bēi '+sz[1],en='One '+sz[2];
+ if(d[0]==='奶茶'&&tops.length===1&&tops[0][0]==='珍珠'){zh+='珍珠奶茶';py+=' zhēnzhū nǎichá';en+=' pearl milk tea';tops=[]}
+ else{zh+=d[0];py+=' '+d[1];en+=' '+d[2]}
+ if(tops.length){zh+='，加'+tops.map(function(t){return t[0]}).join('和');py+=', jiā '+tops.map(function(t){return t[1]}).join(' hé ');en+=' with '+tops.map(function(t){return t[2]}).join(' and ')}
+ zh+='，'+su[0]+'，'+hot[0];py+=', '+su[1]+', '+hot[1];en+=', '+su[2]+', '+hot[2];
+ if(go){zh+='，'+go[0];py+=', '+go[1];en+=', '+go[2]}
+ return {zh:zh+'。',py:py+'.',en:en+'.'}}
+function btBox(){var b=view.bt,c=btCompose(b);
+ function opts(f,multi){return '<div class="opts">'+BT[f].map(function(x){var on=multi?b.tops.indexOf(x[0])>=0:b[f]===x[0];return '<button class="opt-b'+(on?' on':'')+'" data-bt="'+f+'" data-v="'+esc(x[0])+'"><span class="zh">'+esc(x[0])+'</span><small>'+esc(x[2])+'</small></button>'}).join('')+'</div>'}
+ return '<div class="bt-out"><div class="tiny" style="color:inherit;opacity:.7">Show this to the staff</div><div class="bt-zh zh">'+esc(c.zh)+'</div><div class="bt-py">'+esc(c.py)+'</div><div class="bt-en">'+esc(c.en)+'</div><button class="btn" data-fz="'+esc(c.zh)+'" data-fp="'+esc(c.py)+'" data-fe="'+esc(c.en)+'">'+I('eye')+'Show full screen</button></div>'+
+ '<div class="bt-lbl">1 · Drink</div>'+opts('drink')+'<div class="bt-lbl">2 · Size</div>'+opts('size')+'<div class="bt-lbl">3 · Sugar 甜度</div>'+opts('sugar')+'<div class="bt-lbl">4 · Ice / temperature 冰度</div>'+opts('ice')+'<div class="bt-lbl">5 · Toppings 加料 (tap any)</div>'+opts('tops',true)+'<div class="bt-lbl">6 · Here or to go</div>'+opts('go')}
+
+/* ---------- Live place search (OpenStreetMap Nominatim) ---------- */
+var OSM_URL='https://nominatim.openstreetmap.org/search?format=jsonv2&viewbox=120.85,31.88,122.2,30.68&bounded=1&accept-language=en,zh&limit=8&namedetails=1&q=';
+var osmTimer=null,osmSeq=0;
+function osmParse(r){var nd=r.namedetails||{},zh=nd['name:zh']||(/[\u4e00-\u9fff]/.test(nd.name||'')?nd.name:'');var en=nd['name:en']||r.name||String(r.display_name||'').split(',')[0];if(!en)en=zh;
+ var addr=String(r.display_name||'').split(',').map(function(x){return x.trim()}).filter(function(x){return x&&x!==en&&x!=='China'&&x!=='中国'}).slice(0,3).join(', ');
+ return {id:'osm',en:en,zh:zh&&zh!==en?zh:'',kw:zh||en,area:addr||'Shanghai',metro:'',lat:+r.lat,lng:+r.lon,coord:'wgs84',cat:['Search']}}
+function osmSearch(q,cb){var my=++osmSeq;clearTimeout(osmTimer);q=String(q||'').trim();if(q.length<2){cb(null,[],q);return}
+ osmTimer=setTimeout(function(){
+  try{if(!window.fetch||navigator.onLine===false)throw new Error('offline');
+   fetch(OSM_URL+encodeURIComponent(q),{headers:{'Accept':'application/json'}}).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json()}).then(function(j){if(my!==osmSeq)return;cb(null,(j||[]).map(osmParse),q)}).catch(function(e){if(my!==osmSeq)return;cb(e||1,[],q)});
+  }catch(e){cb(e,[],q)}},500)}
+var OSMR=[];
+function osmFallback(q){return '<div class="note">Search unavailable offline, save by name instead.'+(q?' <button class="pill acc" data-osmname="'+esc(q)+'" style="margin-top:6px">'+I('plus')+'Save “'+esc(q)+'” by name</button>':'')+'</div>'}
+function osmResultsHtml(err,list,q){if(err)return osmFallback(q);if(!q)return '';if(!list.length)return '<div class="note">No matches in Shanghai on OpenStreetMap. <button class="pill acc" data-osmname="'+esc(q)+'" style="margin-top:6px">'+I('plus')+'Save “'+esc(q)+'” by name</button></div>';
+ return list.map(function(p,i){return '<div class="osm-r"><div class="sp"><b>'+esc(p.en)+'</b>'+(p.zh?' <span class="zh t2">'+esc(p.zh)+'</span>':'')+'<div class="tiny">'+esc(p.area)+'</div></div><div class="row" style="margin-top:8px;flex-wrap:wrap;gap:6px">'+amapA(p)+'<button class="pill" data-osmsave="'+i+'">'+I('heart')+'Save</button><button class="addday" data-osmadd="'+i+'">'+I('plus')+'Add to day</button></div></div>'}).join('')+'<div class="tiny" style="margin-top:6px">Search results © OpenStreetMap contributors</div>'}
+
 var PHRASES=[
  ['Hello','你好','nǐ hǎo'],['Thank you','谢谢','xièxie'],['Please take me to this address','请带我去这个地址','qǐng dài wǒ qù zhège dìzhǐ'],
  ['How much is it?','多少钱？','duōshao qián?'],['Is this halal?','这是清真的吗？','zhè shì qīngzhēn de ma?'],['No pork, please','请不要放猪肉','qǐng bú yào fàng zhūròu'],
@@ -323,15 +418,15 @@ var PHRASES=[
 function seed(){
  var days={};TRIP_DAYS.forEach(function(k){days[k]=[]});
  days['2026-11-28']=[
-  {id:uid(),time:'09:20',title:'Fly SQ830 to Shanghai',place:'Singapore Changi, Terminal 3',note:'Arrives 14:35 at Pudong T2',src:'booking'},
-  {id:uid(),time:'14:35',title:'Land at Shanghai Pudong',place:'Pudong Airport (PVG), Terminal 2',note:'Transfer to hotel: not booked yet',src:'booking'},
-  {id:uid(),time:'15:00',title:'Check in at Andaz Shanghai ITC',place:'283 Hongqiao Rd, Xuhui',note:'Check-in from 15:00. Deposit CNY 1,000 per day.',src:'booking'}];
+  {id:uid(),time:'09:20',title:'Fly SQ830 to Shanghai',place:'Singapore Changi, Terminal 3',note:'Arrives 14:35 at Pudong T2',src:'booking',nomap:true},
+  {id:uid(),time:'14:35',title:'Land at Shanghai Pudong',place:'Pudong Airport (PVG), Terminal 2',note:'Transfer to hotel: not booked yet',src:'booking',kw:'上海浦东国际机场T2航站楼'},
+  {id:uid(),time:'15:00',title:'Check in at Andaz Shanghai ITC',place:'283 Hongqiao Rd, Xuhui',note:'Check-in from 15:00. Deposit CNY 1,000 per day.',src:'booking',kw:'上海徐家汇中心安达仕酒店'}];
  days['2026-12-06']=[
-  {id:uid(),time:'12:00',title:'Check out of Andaz',place:'283 Hongqiao Rd, Xuhui',note:'Check out before 12:00',src:'booking'},
-  {id:uid(),time:'16:25',title:'Fly SQ833 home',place:'Pudong Airport (PVG), Terminal 2',note:'Arrives Singapore 22:15',src:'booking'}];
- return {v:1,name:'Fee',appearance:{},refs:{sq:'',trip:'',hotel:''},transfer:'none',days:days,
+  {id:uid(),time:'12:00',title:'Check out of Andaz',place:'283 Hongqiao Rd, Xuhui',note:'Check out before 12:00',src:'booking',kw:'上海徐家汇中心安达仕酒店'},
+  {id:uid(),time:'16:25',title:'Fly SQ833 home',place:'Pudong Airport (PVG), Terminal 2',note:'Arrives Singapore 22:15',src:'booking',kw:'上海浦东国际机场T2航站楼'}];
+ return {v:1,name:'Fee',appearance:{},refs:{sq:'',trip:'',hotel:''},places:[],transfer:'none',days:days,
   weather:{temp:'',cond:'',note:''},rate:5.4,dailyCny:'',
-  apps:[['Alipay','Link your card before you fly'],['WeChat (Weixin)','Messaging + WeChat Pay'],['Didi','Taxis (also inside Alipay)'],['Amap (Gaode)','Maps that work best in China'],['VPN or travel eSIM','For Google, WhatsApp, Instagram'],['Trip.com','Your hotel booking lives here']].map(function(a){return {id:uid(),t:a[0],s:a[1],done:false}}),
+  apps:[['Alipay','Link your card before you fly'],['WeChat (Weixin)','Messaging + WeChat Pay'],['Didi','Taxis (also inside Alipay)'],['Amap (Gaode)','Every place link in this app opens Amap'],['VPN or travel eSIM','For Google, WhatsApp, Instagram. Place links here use Amap because it works in China without a VPN'],['Trip.com','Your hotel booking lives here']].map(function(a){return {id:uid(),t:a[0],s:a[1],done:false}}),
   packing:['Warm jacket or coat','Light layers / sweater','Comfortable walking shoes','Umbrella or light rain jacket','Universal power adapter','Power bank (in hand luggage)','Passport (6+ months validity)','Printed hotel address','Toiletries (Shanghai hotels skip disposables)','Prayer mat & qibla app','Some cash in CNY','Lip balm & moisturiser'].map(function(t){return {id:uid(),t:t,done:false}}),
   docs:[{id:uid(),t:'China arrival card filled online',s:'Receipt emailed 14 Sep by the immigration form site',done:true},{id:uid(),t:'Check China entry rules for Singapore passports',s:'Confirm on the official site before you fly',done:false}]
  };
@@ -339,12 +434,14 @@ function seed(){
 var S;
 function load(){try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}
  if(!S||!S.days){var ap=S&&S.appearance;S=seed();if(ap)S.appearance=ap;save()}
- var d=seed();['refs','weather','apps','packing','docs'].forEach(function(k){if(!S[k])S[k]=d[k]});
+ var d=seed();['refs','weather','apps','packing','docs','places'].forEach(function(k){if(!S[k])S[k]=d[k]});
+ S.apps.forEach(function(a){if(a.t==='VPN or travel eSIM'&&a.s==='For Google, WhatsApp, Instagram')a.s=d.apps[4].s;if(a.t==='Amap (Gaode)'&&a.s==='Maps that work best in China')a.s=d.apps[3].s});
+ TRIP_DAYS.forEach(function(k){(S.days[k]||[]).forEach(function(a){if(a.src==='booking'&&!a.kw&&!a.nomap){if(/Changi/.test(a.place))a.nomap=true;else if(/Hongqiao/.test(a.place))a.kw='上海徐家汇中心安达仕酒店';else if(/Pudong Airport/.test(a.place))a.kw='上海浦东国际机场T2航站楼'}})});
  TRIP_DAYS.forEach(function(k){if(!S.days[k])S.days[k]=[]});if(!S.appearance)S.appearance={}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('Could not save')}}
 window.__shTheme.live=function(){return S&&S.appearance||{}};
 
-var view={tab:'home',day:null,cat:'All',q:'',ess:'taxi',reveal:{}};
+var view={tab:'home',day:null,cat:'All',q:'',ess:'taxi',reveal:{},osmq:'',osmHtml:'',bt:{drink:'奶茶',size:'大杯',sugar:'半糖',ice:'少冰',tops:['珍珠'],go:'带走'}};
 var app=document.getElementById('app'),nav=document.getElementById('nav');
 function toast(m){var t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove()},1800)}
 function copy(txt){if(!txt){toast('Nothing to copy yet');return}
@@ -356,7 +453,7 @@ function header(sub){return '<div class="top"><div class="av">'+esc((S.name||'F'
 function tripState(){var n=Date.now();if(n<DEPART)return 'before';if(n<=RETURN_ARR)return 'during';return 'after'}
 function pad(n){return (n<10?'0':'')+n}
 function acts(k){return (S.days[k]||[]).slice().sort(function(a,b){return (a.time||'99').localeCompare(b.time||'99')})}
-function actRow(a,k,ops){return '<div class="act"><div class="tm">'+esc(a.time||'—')+(a.src==='booking'?'<small>booked</small>':'')+'</div><div class="bd"><b>'+esc(a.title)+'</b>'+(a.place?'<div class="tiny">'+esc(a.place)+'</div>':'')+(a.note?'<div class="tiny">'+esc(a.note)+'</div>':'')+'</div>'+(ops?'<div class="ops"><button data-edit="'+a.id+'" data-day="'+k+'" aria-label="Edit">'+I('edit')+'</button><button data-del="'+a.id+'" data-day="'+k+'" aria-label="Delete">'+I('trash')+'</button></div>':'')+'</div>'}
+function actRow(a,k,ops){return '<div class="act"><div class="tm">'+esc(a.time||'—')+(a.src==='booking'?'<small>booked</small>':'')+'</div><div class="bd"><b>'+esc(a.title)+'</b>'+(a.place?'<div class="tiny">'+esc(a.place)+'</div>':'')+(a.place&&!a.nomap?'<div style="margin-top:6px">'+amapA({kw:a.kw||a.place.split(' · ')[0],lat:a.lat,lng:a.lng,coord:a.coord})+'</div>':'')+(a.note?'<div class="tiny">'+esc(a.note)+'</div>':'')+'</div>'+(ops?'<div class="ops"><button data-edit="'+a.id+'" data-day="'+k+'" aria-label="Edit">'+I('edit')+'</button><button data-del="'+a.id+'" data-day="'+k+'" aria-label="Delete">'+I('trash')+'</button></div>':'')+'</div>'}
 
 function vHome(){
  var st=tripState(),h='';
@@ -399,7 +496,7 @@ function vBookings(){
  h+=flightCard({tag:'Return',date:'Sun, 6 Dec 2026',from:'PVG',fromCity:'Shanghai Pudong',to:'SIN',toCity:'Singapore',dep:'16:25',arr:'22:15',fromT:'Pudong T2',toT:'Changi',no:'SQ833'});
  h+='<div class="card"><h3>Booking refs</h3><div class="tiny">Type them in once. They stay on this phone only and are hidden until you tap the eye.</div>'+refRow('sq','SQ booking')+refRow('trip','Trip.com no.')+refRow('hotel','Hotel conf.')+'</div>';
  h+='<div id="hotel" class="sec"><h2>Hotel</h2><span class="tiny">via Trip.com</span></div>';
- h+='<div class="card feat"><div class="ph" style="height:150px">'+skyline('b','card')+'<span class="badge">'+I('star')+'Andaz · Hyatt</span></div><div class="bot"><span class="ic">'+I('bed')+'</span><div class="sp"><b>Andaz Shanghai ITC</b><div class="tiny">283 Hongqiao Rd, Xuhui District</div></div></div></div>';
+ h+='<div class="card feat"><div class="ph" style="height:150px">'+skyline('b','card')+'<span class="badge">'+I('star')+'Andaz · Hyatt</span></div><div class="bot"><span class="ic">'+I('bed')+'</span><div class="sp"><b>Andaz Shanghai ITC</b><div class="tiny">283 Hongqiao Rd, Xuhui District</div></div>'+amapA({kw:'上海徐家汇中心安达仕酒店'},'Amap')+'</div></div>';
  h+='<div class="card"><h3>Booking Details</h3>'+
   '<div class="bk">'+I('cal')+'<span>Check-in</span><span class="v">28 Nov 2026<br>after 15:00</span></div>'+
   '<div class="bk">'+I('cal')+'<span>Check-out</span><span class="v">6 Dec 2026<br>before 12:00</span></div>'+
@@ -436,17 +533,21 @@ function vPlan(){
  h+='<button class="btn ghost sm" data-go="explore">'+I('compass')+'Browse ideas in Explore</button>';
  return h;
 }
+function allPlaces(){return (S.places||[]).map(function(p){return {id:p.id,en:p.name,zh:p.zh||'',kw:p.zh||p.name,cat:['Saved'],area:p.lat!=null?'Saved · pinned location':'Saved · Amap will search by name',metro:'',c:'#2a2a2e',ic:'heart',d:p.note||'',lat:p.lat,lng:p.lng,coord:p.coord,saved:true}}).concat(SPOTS)}
+function placeById(id){return allPlaces().filter(function(x){return x.id===id})[0]}
+function itemFromPlace(s){var o={title:s.en,place:(s.zh?s.zh.split(' · ')[0]+' · ':'')+s.area,note:s.metro||'',kw:s.kw||(s.zh?s.zh.split(' · ')[0]:s.en)};if(s.lat!=null){o.lat=s.lat;o.lng=s.lng;o.coord=s.coord||'wgs84'}return o}
 function vExplore(){
  var h=header('Ideas for your 9 days');
  h+='<div class="ttl">Explore Shanghai</div><div class="tiny" style="margin:0 2px 4px">Suggestions only. Nothing here is booked.</div>';
  h+='<div class="search">'+I('compass')+'<input id="q" placeholder="Search places" value="'+esc(view.q)+'"><span class="round">'+I('pin')+'</span></div>';
- var cats=[['All','compass'],['Sights','sight'],['Food','food'],['Shopping','shop'],['Day trips','mount']];
+ var cats=[['All','compass'],['Saved','heart'],['Sights','sight'],['Food','food'],['Shopping','shop'],['Day trips','mount']];
  h+='<div class="chips" style="margin-bottom:8px">'+cats.map(function(c){return '<button class="chip'+(view.cat===c[0]?' on':'')+'" data-cat="'+c[0]+'"><span class="ic">'+I(c[1])+'</span>'+c[0]+'</button>'}).join('')+'</div>';
  var q=view.q.trim().toLowerCase();
- var list=SPOTS.filter(function(s){return (view.cat==='All'||s.cat.indexOf(view.cat)>=0)&&(!q||(s.en+' '+s.zh+' '+s.area+' '+s.d).toLowerCase().indexOf(q)>=0)});
+ if(view.cat==='Saved'||view.cat==='All')h+='<div class="card"><h3>Save a place</h3><div class="tiny">Paste a Google Maps link (or just type a name). It\'s saved here and opens in Amap.</div><div class="addline"><input id="gm_url" placeholder="Paste Google Maps link or a name"><button data-act="savegm" aria-label="Save place">'+I('plus')+'</button></div><div class="tiny" style="margin-top:14px">Or search Shanghai on OpenStreetMap</div><div class="addline"><input id="osm_q" placeholder="e.g. Wukang Mansion, 豫园" autocomplete="off" value="'+esc(view.osmq||'')+'"></div><div id="osm_res">'+(view.osmHtml||'')+'</div></div>';
+ var list=allPlaces().filter(function(s){return (view.cat==='All'||s.cat.indexOf(view.cat)>=0)&&(!q||(s.en+' '+s.zh+' '+s.area+' '+s.d).toLowerCase().indexOf(q)>=0)});
  if(view.cat==='Food')list.sort(function(a,b){return (b.halal?1:0)-(a.halal?1:0)});
  if(view.cat==='Food')h+='<div class="note" style="margin:0 0 12px">Halal picks come from Shanghai halal food guides online (checked Oct 2026). Look for the green <span class="zh">清真</span> sign and ask whether alcohol is served.</div>';
- h+=list.length?list.map(function(s){return '<div class="card"><div class="spot"><div class="th" style="background:'+s.c+'">'+I(s.ic)+'</div><div class="sp"><h4>'+esc(s.en)+'</h4><div class="zh t2" style="font-size:15px">'+esc(s.zh)+'</div><div class="tiny">'+esc(s.area)+'</div></div></div><div class="small t2" style="margin-top:10px">'+esc(s.d)+'</div><div class="meta"><span class="pill">'+I('metro')+esc(s.metro)+'</span>'+(s.halal?'<span class="pill acc">Halal · worth checking</span>':'')+s.cat.map(function(c){return '<span class="pill">'+c+'</span>'}).join('')+'</div><div class="row" style="margin-top:12px"><button class="pill" data-copyzh="'+s.id+'">'+I('copy')+'Copy Chinese</button><button class="addday" data-addspot="'+s.id+'">'+I('plus')+'Add to day</button></div></div>'}).join(''):'<div class="empty">No places match.</div>';
+ h+=list.length?list.map(function(s){return '<div class="card"><div class="spot"><div class="th" style="background:'+s.c+'">'+I(s.ic)+'</div><div class="sp"><h4>'+esc(s.en)+'</h4>'+(s.zh?'<div class="zh t2" style="font-size:15px">'+esc(s.zh)+'</div>':'')+'<div class="tiny">'+esc(s.area)+'</div></div></div>'+(s.d?'<div class="small t2" style="margin-top:10px">'+esc(s.d)+'</div>':'')+'<div class="meta">'+(s.metro?'<span class="pill">'+I('metro')+esc(s.metro)+'</span>':'')+(s.halal?'<span class="pill acc">Halal · worth checking</span>':'')+s.cat.map(function(c){return '<span class="pill">'+c+'</span>'}).join('')+'</div><div class="row" style="margin-top:12px;flex-wrap:wrap">'+amapA(s)+(s.zh?'<button class="pill" data-copyzh="'+s.id+'">'+I('copy')+'Copy Chinese</button>':'')+(s.saved?'<button class="pill" data-rmplace="'+s.id+'">'+I('trash')+'Remove</button>':'')+'<button class="addday" data-addspot="'+s.id+'">'+I('plus')+'Add to day</button></div></div>'}).join(''):'<div class="empty">No places match.</div>';
  return h;
 }
 function chkList(arr,key){return arr.map(function(it){return '<div class="chk'+(it.done?' done':'')+'"><button class="bx" data-tog="'+key+'" data-id="'+it.id+'" aria-label="Toggle">'+(it.done?I('check'):'')+'</button><div class="lb">'+esc(it.t)+(it.s?'<small>'+esc(it.s)+'</small>':'')+'</div><button class="x" data-rm="'+key+'" data-id="'+it.id+'" aria-label="Remove">'+I('x')+'</button></div>'}).join('')+'<div class="addline"><input id="add_'+key+'" placeholder="Add an item"><button data-additem="'+key+'" aria-label="Add">'+I('plus')+'</button></div>'}
@@ -454,10 +555,21 @@ function dailyOut(){var d=+S.dailyCny,r=+S.rate;if(!d)return 'Set a daily amount
 function vEss(){
  var h=header('Handy when you land');
  h+='<div class="ttl">Essentials</div>';
- var subs=[['taxi','Taxi card'],['phrases','Phrases'],['apps','Apps'],['packing','Packing'],['sos','Emergency'],['money','Money']];
+ var subs=[['taxi','Taxi card'],['phrases','Phrases'],['tea','Bubble tea'],['pay','Payments'],['apps','Apps'],['packing','Packing'],['sos','Emergency'],['money','Money']];
  h+='<div class="subnav">'+subs.map(function(s){return '<button class="chip sm'+(view.ess===s[0]?' on':'')+'" data-ess="'+s[0]+'">'+s[1]+'</button>'}).join('')+'</div>';
- h+='<div id="e_taxi" class="sec"><h2>Show taxi driver</h2></div><div class="taxi"><div class="tiny">请带我去这里 · Please take me here</div><div class="big zh">上海徐家汇中心安达仕酒店</div><div class="zh" style="font-size:22px;font-weight:600">上海市徐汇区虹桥路283号</div><div class="tiny" style="margin-top:8px">Andaz Shanghai ITC, No. 283 Hongqiao Road, Xuhui District</div><button class="btn" data-act="full">'+I('eye')+'Show full screen</button><button class="btn ghost sm" data-copytxt="上海市徐汇区虹桥路283号 上海徐家汇中心安达仕酒店">'+I('copy')+'Copy for Didi / Amap</button></div>';
- h+='<div id="e_phrases" class="sec"><h2>Useful phrases</h2><span class="tiny">Tap the eye to show big</span></div><div class="card" style="padding:6px 18px">'+PHRASES.map(function(p,i){return '<div class="ph-row"><div class="en">'+esc(p[0])+'</div><div class="zh">'+esc(p[1])+'</div><div class="py">'+esc(p[2])+'</div><button data-phrase="'+i+'" aria-label="Show big">'+I('eye')+'</button></div>'}).join('')+'</div>';
+ h+='<div id="e_taxi" class="sec"><h2>Show taxi driver</h2></div><div class="taxi"><div class="tiny">请带我去这里 · Please take me here</div><div class="big zh">上海徐家汇中心安达仕酒店</div><div class="zh" style="font-size:22px;font-weight:600">上海市徐汇区虹桥路283号</div><div class="tiny" style="margin-top:8px">Andaz Shanghai ITC, No. 283 Hongqiao Road, Xuhui District</div><button class="btn" data-act="full">'+I('eye')+'Show full screen</button><button class="btn ghost sm" data-copytxt="上海市徐汇区虹桥路283号 上海徐家汇中心安达仕酒店">'+I('copy')+'Copy for Didi / Amap</button>'+amapA({kw:'上海徐家汇中心安达仕酒店'},'Open hotel in Amap','btn ghost sm')+'</div>';
+ h+='<div id="e_phrases" class="sec"><h2>Useful phrases</h2><span class="tiny">Tap the eye to show big</span></div><div class="card" style="padding:6px 18px">'+PHRASES.map(function(p){return phRow(p[1],p[2],p[0])}).join('')+'</div>';
+ h+='<div id="e_tea" class="sec"><h2>Ordering bubble tea</h2><span class="tiny pyf">奶茶 nǎichá</span></div>';
+ h+='<div class="card"><h3>How to order</h3><ol class="steps"><li><b>Drink</b> — say what you want, e.g. 奶茶 (milk tea) or 水果茶 (fruit tea).</li><li><b>Size</b> — <span class="zh">中杯</span> zhōng bēi (medium) or <span class="zh">大杯</span> dà bēi (large).</li><li><b>Sugar</b> <span class="zh">甜度</span> — pick a level from the list below.</li><li><b>Ice</b> <span class="zh">冰度</span> — or ask for it warm or hot.</li><li><b>Toppings</b> <span class="zh">加料</span> — 加 jiā + topping, e.g. <span class="zh">加珍珠</span>.</li><li><b>Here or to go</b> — <span class="zh">堂食</span> tángshí (for here), <span class="zh">打包</span> dǎbāo / <span class="zh">带走</span> dàizǒu (to go).</li></ol><div class="note tea-note"><b>Scan to order <span class="zh">扫码点单</span></b> (sǎomǎ diǎndān): many shops have a QR code on the counter or table. Scan it with WeChat or Alipay, which opens the shop\'s mini-program (<span class="zh">小程序</span> xiǎochéngxù). Choose your options and pay, then wait for your pickup number (<span class="zh">取餐号</span> qǔcān hào) to be called or shown.</div></div>';
+ h+='<div class="card" style="padding:6px 18px"><div class="cap-h">Sugar levels 甜度 · tap to show</div>'+BT.sugar.map(function(x){return phRow(x[0],x[1],x[2])}).join('')+'</div>';
+ h+='<div class="card" style="padding:6px 18px"><div class="cap-h">Ice & temperature 冰度</div>'+BT.ice.map(function(x){return phRow(x[0],x[1],x[2])}).join('')+'</div>';
+ h+='<div class="card" style="padding:6px 18px"><div class="cap-h">Toppings 加料</div>'+BT.tops.filter(function(x){return true}).map(function(x){return phRow(x[0],x[1],x[2])}).join('')+'</div>';
+ h+='<div class="card" style="padding:6px 18px"><div class="cap-h">Say it</div>'+BT_SAMPLES.map(function(x){return phRow(x[0],x[1],x[2])}).join('')+'<div class="cap-h">What staff may ask</div>'+BT_ASK.map(function(x){return phRow(x[0],x[1],x[2])}).join('')+'</div>';
+ h+='<div class="card" style="padding:6px 18px"><div class="cap-h">Chains you\'ll see</div>'+BT_CHAINS.map(function(x){return phRow(x[0],x[1],x[2])}).join('')+'</div>';
+ h+='<div id="e_build" class="sec"><h2>Build my order</h2><span class="tiny">Tap to compose</span></div><div class="card" id="bt_box">'+btBox()+'</div>';
+ h+='<div id="e_pay" class="sec"><h2>Paying</h2><span class="row" style="gap:6px">'+ICON_WX+ICON_ALI+'</span></div>';
+ h+='<div class="card" style="padding:6px 18px">'+PAY.map(function(x){return phRow(x[0],x[1],x[2],x[3]==='wx'?ICON_WX:x[3]==='ali'?ICON_ALI:'')}).join('')+'</div>';
+ h+='<div class="card"><h3>Link your Visa / Mastercard</h3><div class="pay-step"><span class="ph-ic">'+ICON_ALI+'</span><div><b>Alipay <span class="zh">支付宝</span></b><div class="small t2">Download Alipay and sign up with your phone number. Then go to Account → Bank Cards → Add a card and follow the prompts. It may ask for your passport to verify you.</div></div></div><div class="pay-step"><span class="ph-ic">'+ICON_WX+'</span><div><b>WeChat Pay <span class="zh">微信支付</span></b><div class="small t2">In WeChat, tap Me → Pay and Services → Wallet → Bank Cards → Add a Bank Card. Fill in your identity details; with a passport you\'ll be asked to upload a copy. A non-China phone number is fine if it gets SMS codes.</div></div></div><div class="note">Set both up in Singapore before you fly, and check your bank approves the link (some banks block it at first; a call usually fixes it). Payments of CNY 200 or less are generally fee-free; above CNY 200 a 3% fee may apply to the full amount, so check the payment page. Cards can\'t be used for transfers or red packets. Sources: Shanghai government and WeChat Pay help pages, checked Oct 2026.</div></div>';
  h+='<div id="e_apps" class="sec"><h2>Apps to set up</h2><span class="tiny">'+S.apps.filter(function(a){return a.done}).length+'/'+S.apps.length+' done</span></div><div class="card" style="padding:6px 18px">'+chkList(S.apps,'apps')+'</div>';
  h+='<div class="sec"><h2>Documents</h2></div><div class="card" style="padding:6px 18px">'+chkList(S.docs,'docs')+'</div>';
  h+='<div id="e_packing" class="sec"><h2>Packing list</h2><span class="tiny">'+S.packing.filter(function(a){return a.done}).length+'/'+S.packing.length+' packed</span></div><div class="card" style="padding:6px 18px">'+chkList(S.packing,'packing')+'</div>';
@@ -487,22 +599,29 @@ setInterval(cdTick,1000);
 function sheet(html){closeSheet();var bg=document.createElement('div');bg.className='sheet-bg';bg.id='sheet';bg.innerHTML='<div class="sheet"><div class="grab"></div>'+html+'</div>';bg.addEventListener('click',function(e){if(e.target===bg)closeSheet()});document.body.appendChild(bg);return bg}
 function closeSheet(){var s=document.getElementById('sheet');if(s)s.remove()}
 function actForm(k,a,pre){a=a||{};pre=pre||{};
- var bg=sheet('<h3>'+(a.id?'Edit activity':'New activity')+'</h3><div class="fld"><label>Day</label><select id="f_day">'+TRIP_DAYS.map(function(d,i){return '<option value="'+d+'"'+(d===k?' selected':'')+'>Day '+(i+1)+' · '+dLabel(d,true)+'</option>'}).join('')+'</select></div><div class="two"><div class="fld"><label>Time</label><input id="f_time" type="time" value="'+esc(a.time||pre.time||'')+'"></div><div class="fld"><label>Place</label><input id="f_place" value="'+esc(a.place||pre.place||'')+'" placeholder="Where"></div></div><div class="fld"><label>What</label><input id="f_title" value="'+esc(a.title||pre.title||'')+'" placeholder="e.g. Walk the Bund"></div><div class="fld"><label>Note</label><textarea id="f_note" placeholder="Tickets, tips, who you\'re meeting">'+esc(a.note||pre.note||'')+'</textarea></div><button class="btn" id="f_save">Save</button><button class="btn ghost sm" id="f_cancel">Cancel</button>');
- bg.querySelector('#f_cancel').onclick=closeSheet;
+ var bg=sheet('<h3>'+(a.id?'Edit activity':'New activity')+'</h3><div class="fld"><label>Day</label><select id="f_day">'+TRIP_DAYS.map(function(d,i){return '<option value="'+d+'"'+(d===k?' selected':'')+'>Day '+(i+1)+' · '+dLabel(d,true)+'</option>'}).join('')+'</select></div><div class="two"><div class="fld"><label>Time</label><input id="f_time" type="time" value="'+esc(a.time||pre.time||'')+'"></div><div class="fld"><label>Place</label><input id="f_place" value="'+esc(a.place||pre.place||'')+'" placeholder="Where"></div></div><div class="fld"><label>Search a place (OpenStreetMap)</label><input id="f_osm" placeholder="e.g. Tianzifang, 新天地" autocomplete="off"><div id="f_osmres"></div></div><div class="fld"><label>What</label><input id="f_title" value="'+esc(a.title||pre.title||'')+'" placeholder="e.g. Walk the Bund"></div><div class="fld"><label>Note</label><textarea id="f_note" placeholder="Tickets, tips, who you\'re meeting">'+esc(a.note||pre.note||'')+'</textarea></div><button class="btn" id="f_save">Save</button><button class="btn ghost sm" id="f_cancel">Cancel</button>');
+ bg.querySelector('#f_cancel').onclick=closeSheet;var geo=null,fres=[];
+ bg.querySelector('#f_osm').addEventListener('input',function(ev){var box=bg.querySelector('#f_osmres');osmSearch(ev.target.value,function(err,list,q){fres=list;if(err){box.innerHTML='<div class="note">Search unavailable offline, save by name instead: just type it in the Place box.</div>';return}
+  box.innerHTML=!q?'':!list.length?'<div class="note">No matches. Type the place name in the Place box instead.</div>':list.map(function(p,i){return '<button class="osm-pick" data-fpick="'+i+'"><b>'+esc(p.en)+'</b>'+(p.zh?' <span class="zh t2">'+esc(p.zh)+'</span>':'')+'<span class="tiny">'+esc(p.area)+'</span></button>'}).join('')})});
+ bg.querySelector('#f_osmres').addEventListener('click',function(ev){var b=ev.target.closest('[data-fpick]');if(!b)return;var p=fres[+b.dataset.fpick];if(!p)return;var it=itemFromPlace(p);geo=it;bg.querySelector('#f_place').value=it.place;var ti=bg.querySelector('#f_title');if(!ti.value.trim())ti.value=p.en;bg.querySelector('#f_osmres').innerHTML='<div class="note">Pinned: '+esc(p.en)+(p.zh?' · <span class="zh">'+esc(p.zh)+'</span>':'')+' — opens in Amap.</div>'});
  bg.querySelector('#f_save').onclick=function(){var t=bg.querySelector('#f_title').value.trim();if(!t){toast('Add what you\'re doing');return}
-  var nd=bg.querySelector('#f_day').value,o={id:a.id||uid(),time:bg.querySelector('#f_time').value,title:t,place:bg.querySelector('#f_place').value.trim(),note:bg.querySelector('#f_note').value.trim()};if(a.src)o.src=a.src;
+  var nd=bg.querySelector('#f_day').value,o={id:a.id||uid(),time:bg.querySelector('#f_time').value,title:t,place:bg.querySelector('#f_place').value.trim(),note:bg.querySelector('#f_note').value.trim()};if(a.src)o.src=a.src;var base=geo&&o.place===geo.place?geo:(a.id?a:pre);if(base&&o.place===(base.place||'')){['kw','lat','lng','coord','nomap'].forEach(function(f){if(base[f]!=null)o[f]=base[f]})}
   if(a.id){TRIP_DAYS.forEach(function(d){S.days[d]=S.days[d].filter(function(x){return x.id!==a.id})})}
   S.days[nd].push(o);save();closeSheet();if(view.tab==='plan')view.day=nd;render();toast(a.id?'Updated':'Added to '+dLabel(nd))};
 }
+function daySheet(s){
+ var bg=sheet('<h3>Add “'+esc(s.en)+'” to…</h3><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'+TRIP_DAYS.map(function(d,i){return '<button class="day" style="width:auto;background:var(--tile)" data-pick="'+d+'"><small>Day '+(i+1)+'</small><b>'+dObj(d).getUTCDate()+'</b><small>'+WD[dObj(d).getUTCDay()]+'</small></button>'}).join('')+'</div><button class="btn ghost sm" id="pk_more">Add with a time and note…</button>');
+ bg.querySelectorAll('[data-pick]').forEach(function(b){b.onclick=function(){var d=b.dataset.pick;var o=itemFromPlace(s);o.id=uid();o.time='';S.days[d].push(o);save();closeSheet();keepY(function(){});toast('Added to '+dLabel(d))}});
+ bg.querySelector('#pk_more').onclick=function(){actForm(TRIP_DAYS[1],null,itemFromPlace(s))}}
 function findAct(k,id){return (S.days[k]||[]).filter(function(x){return x.id===id})[0]}
 function wxForm(){var w=S.weather||{};var bg=sheet('<h3>Weather note</h3><div class="two"><div class="fld"><label>Temperature</label><input id="w_t" value="'+esc(w.temp)+'" placeholder="e.g. 9–15°C"></div><div class="fld"><label>Conditions</label><input id="w_c" value="'+esc(w.cond)+'" placeholder="e.g. Cloudy"></div></div><div class="fld"><label>Note</label><input id="w_n" value="'+esc(w.note)+'" placeholder="e.g. Rain on Tuesday"></div><button class="btn" id="w_s">Save</button><button class="btn ghost sm" id="w_x">Clear</button>');
  bg.querySelector('#w_s').onclick=function(){S.weather={temp:bg.querySelector('#w_t').value.trim(),cond:bg.querySelector('#w_c').value.trim(),note:bg.querySelector('#w_n').value.trim()};save();closeSheet();render()};
  bg.querySelector('#w_x').onclick=function(){S.weather={temp:'',cond:'',note:''};save();closeSheet();render()}}
-function full(z1,z2,en){var d=document.createElement('div');d.className='full';d.innerHTML='<div class="z1 zh">'+esc(z1)+'</div>'+(z2?'<div class="z2 zh">'+esc(z2)+'</div>':'')+'<div class="en">'+esc(en)+'</div><button>Close</button>';d.onclick=function(){d.remove()};document.body.appendChild(d)}
+function full(z1,z2,en,py){var d=document.createElement('div');d.className='full';d.innerHTML='<div class="z1 zh">'+esc(z1)+'</div>'+(z2?'<div class="z2 zh">'+esc(z2)+'</div>':'')+(py?'<div class="fpy">'+esc(py)+'</div>':'')+'<div class="en">'+esc(en)+'</div><button>Close</button>';d.onclick=function(){d.remove()};document.body.appendChild(d)}
 function keepY(fn){var y=scrollY;fn();render();scrollTo(0,y)}
 
 document.addEventListener('click',function(e){
- var t=e.target.closest('button,[data-go]');if(!t||t.closest('#sheet .sheet [data-pick]'))return;var ds=t.dataset;
+ var t=e.target.closest('button,[data-go],[data-fz]');if(!t||t.closest('#sheet .sheet [data-pick]'))return;var ds=t.dataset;
  if(ds.tab){view.tab=ds.tab;render();scrollTo(0,0);return}
  if(ds.go){view.tab=ds.go;if(ds.day)view.day=ds.day;if(ds.ess)view.ess=ds.ess;render();var an=ds.anchor||(ds.ess?'e_'+ds.ess:null),el=an&&document.getElementById(an);if(el)scrollTo(0,el.getBoundingClientRect().top+scrollY-(ds.ess?56:8));else scrollTo(0,0);return}
  if(ds.ess&&view.tab==='ess'){view.ess=ds.ess;document.querySelectorAll('.subnav .chip').forEach(function(c){c.classList.toggle('on',c.dataset.ess===ds.ess)});var el2=document.getElementById('e_'+ds.ess);if(el2)scrollTo({top:el2.getBoundingClientRect().top+scrollY-56,behavior:'smooth'});return}
@@ -511,18 +630,24 @@ document.addEventListener('click',function(e){
  if(ds.edit){var a=findAct(ds.day,ds.edit);if(a)actForm(ds.day,a);return}
  if(ds.del){var a2=findAct(ds.day,ds.del);if(a2&&confirm('Delete "'+a2.title+'"?')){keepY(function(){S.days[ds.day]=S.days[ds.day].filter(function(x){return x.id!==ds.del});save()});toast('Deleted')}return}
  if(ds.cat){view.cat=ds.cat;render();return}
- if(ds.addspot){var s=SPOTS.filter(function(x){return x.id===ds.addspot})[0];
-  var bg=sheet('<h3>Add “'+esc(s.en)+'” to…</h3><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'+TRIP_DAYS.map(function(d,i){return '<button class="day" style="width:auto;background:var(--tile)" data-pick="'+d+'"><small>Day '+(i+1)+'</small><b>'+dObj(d).getUTCDate()+'</b><small>'+WD[dObj(d).getUTCDay()]+'</small></button>'}).join('')+'</div><button class="btn ghost sm" id="pk_more">Add with a time and note…</button>');
-  bg.querySelectorAll('[data-pick]').forEach(function(b){b.onclick=function(){var d=b.dataset.pick;S.days[d].push({id:uid(),time:'',title:s.en,place:s.zh.split(' · ')[0]+' · '+s.area,note:s.metro});save();closeSheet();keepY(function(){});toast('Added to '+dLabel(d))}});
-  bg.querySelector('#pk_more').onclick=function(){actForm(TRIP_DAYS[1],null,{title:s.en,place:s.zh.split(' · ')[0]+' · '+s.area,note:s.metro})};return}
- if(ds.copyzh){var s2=SPOTS.filter(function(x){return x.id===ds.copyzh})[0];copy(s2.zh.split(' · ')[0]);return}
+ if(ds.addspot){var s=placeById(ds.addspot);if(!s)return;daySheet(s);return}
+ if(ds.copyzh){var s2=placeById(ds.copyzh);copy(s2.zh.split(' · ')[0]);return}
+ if(ds.act==='savegm'){var inp2=document.getElementById('gm_url'),raw=inp2&&inp2.value.trim();if(!raw)return;var isUrl=/^https?:\/\//i.test(raw),g=isUrl?parseGmaps(raw):{name:raw,lat:null,lng:null};
+  var bg2=sheet('<h3>Save place</h3>'+(g.short?'<div class="note" style="margin:0 0 12px">Short goo.gl links hide the location. Type the name below and Amap will search for it, or open the link and copy the full URL from the address bar.</div>':'')+'<div class="fld"><label>Name</label><input id="p_name" value="'+esc(g.name)+'" placeholder="Place name"></div><div class="fld"><label>Chinese name (optional, best for Amap search)</label><input id="p_zh" class="zh" placeholder="e.g. 外滩"></div><div class="tiny" style="margin:-4px 4px 12px">'+(g.lat!=null?'Pinned at '+g.lat.toFixed(5)+', '+g.lng.toFixed(5)+' from the link.':'No coordinates found, so Amap will search by name.')+'</div><button class="btn" id="p_save">Save place</button>');
+  bg2.querySelector('#p_save').onclick=function(){var nm=bg2.querySelector('#p_name').value.trim(),zh=bg2.querySelector('#p_zh').value.trim();if(!nm&&!zh){toast('Add a name');return}
+   var p={id:'p_'+uid(),name:nm||zh,zh:zh,src:isUrl?'google':'typed'};if(g.lat!=null){p.lat=g.lat;p.lng=g.lng;p.coord='gaode'}S.places.unshift(p);save();closeSheet();view.cat='Saved';render();toast('Place saved')};return}
+ if(ds.rmplace){if(confirm('Remove this saved place?')){keepY(function(){S.places=S.places.filter(function(x){return x.id!==ds.rmplace});save()})}return}
  if(ds.copytxt){copy(ds.copytxt);return}
  if(ds.reveal){view.reveal[ds.reveal]=!view.reveal[ds.reveal];var inp=document.querySelector('input[data-ref="'+ds.reveal+'"]');if(inp)inp.type=view.reveal[ds.reveal]?'text':'password';return}
  if(ds.copyref){copy(S.refs[ds.copyref]);return}
  if(ds.transfer){keepY(function(){S.transfer=ds.transfer;save()});return}
  if(ds.act==='wx'){wxForm();return}
  if(ds.act==='full'){full('上海徐家汇中心安达仕酒店','上海市徐汇区虹桥路283号','Andaz Shanghai ITC · 283 Hongqiao Road, Xuhui · 请带我去这里');return}
- if(ds.phrase){var p=PHRASES[+ds.phrase];full(p[1],'',p[2]+' · '+p[0]);return}
+ if(ds.fz!=null){full(ds.fz,'',ds.fe,ds.fp);return}
+ if(ds.bt){var b=view.bt;if(ds.bt==='tops'){var ix=b.tops.indexOf(ds.v);if(ix>=0)b.tops.splice(ix,1);else b.tops.push(ds.v)}else if(ds.bt==='go'&&b.go===ds.v){b.go=''}else b[ds.bt]=ds.v;var bx=document.getElementById('bt_box');if(bx)bx.innerHTML=btBox();return}
+ if(ds.osmsave!=null){var r0=OSMR[+ds.osmsave];if(r0){S.places.unshift({id:'p_'+uid(),name:r0.en,zh:r0.zh,lat:r0.lat,lng:r0.lng,coord:'wgs84',src:'osm',note:r0.area});save();toast('Saved to your places');t.textContent='Saved';t.disabled=true}return}
+ if(ds.osmadd!=null){var r1=OSMR[+ds.osmadd];if(r1)daySheet(r1);return}
+ if(ds.osmname!=null){S.places.unshift({id:'p_'+uid(),name:ds.osmname,zh:/[\u4e00-\u9fff]/.test(ds.osmname)?ds.osmname:'',src:'typed'});save();view.cat='Saved';view.osmq='';view.osmHtml='';render();toast('Place saved');return}
  if(ds.tog){keepY(function(){var it=S[ds.tog].filter(function(x){return x.id===ds.id})[0];if(it){it.done=!it.done;save()}});return}
  if(ds.rm){keepY(function(){S[ds.rm]=S[ds.rm].filter(function(x){return x.id!==ds.id});save()});return}
  if(ds.additem){var ip=document.getElementById('add_'+ds.additem),v=ip&&ip.value.trim();if(!v)return;keepY(function(){S[ds.additem].push({id:uid(),t:v,done:false});save()});var n=document.getElementById('add_'+ds.additem);if(n)n.focus({preventScroll:true});return}
@@ -530,9 +655,10 @@ document.addEventListener('click',function(e){
  if(ds.act==='export'){var blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),u=URL.createObjectURL(blob),l=document.createElement('a');l.href=u;l.download='Shanghai-trip-backup-'+todayKey()+'.json';document.body.appendChild(l);l.click();setTimeout(function(){URL.revokeObjectURL(u);l.remove()},1500);toast('Backup downloaded');return}
  if(ds.act==='reset'){if(confirm('Reset all trip data on this phone? Your theme stays.')){var ap=S.appearance;S=seed();S.appearance=ap;save();render();toast('Reset')}return}
 });
-document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id&&e.target.id.indexOf('add_')===0){var b=document.querySelector('[data-additem="'+e.target.id.slice(4)+'"]');if(b)b.click()}});
+document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('tap')){e.preventDefault();e.target.click();return}if(e.key==='Enter'&&e.target.id==='gm_url'){var gb=document.querySelector('[data-act=savegm]');if(gb)gb.click();return}if(e.key==='Enter'&&e.target.id&&e.target.id.indexOf('add_')===0){var b=document.querySelector('[data-additem="'+e.target.id.slice(4)+'"]');if(b)b.click()}});
 document.addEventListener('input',function(e){var t=e.target;
  if(t.dataset.ref){S.refs[t.dataset.ref]=t.value.trim();save();return}
+ if(t.id==='osm_q'){view.osmq=t.value;osmSearch(t.value,function(err,list,q){OSMR=list;view.osmHtml=osmResultsHtml(err,list,q);var box=document.getElementById('osm_res');if(box)box.innerHTML=view.osmHtml});return}
  if(t.id==='q'){view.q=t.value;var pos=t.selectionStart;render();var q=document.getElementById('q');q.focus();try{q.setSelectionRange(pos,pos)}catch(_){}return}
  if(t.id==='accCustom'){S.appearance.accent=t.value;window.__shTheme.apply(S.appearance);return}
  if(t.id==='rate'){S.rate=parseFloat(t.value)||'';save();document.getElementById('dailyOut').textContent=dailyOut();return}
