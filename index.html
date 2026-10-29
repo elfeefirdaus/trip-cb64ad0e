@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Shanghai">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" id="themeColor" content="#eceef0">
+<meta name="robots" content="noindex">
+<title>Fee · Shanghai Trip</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20180%20180%22%3E%3Crect%20width%3D%22180%22%20height%3D%22180%22%20rx%3D%2240%22%20fill%3D%22%23141414%22/%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2290%22%20r%3D%2262%22%20fill%3D%22%23D4F53C%22/%3E%3Cg%20fill%3D%22%23141414%22%3E%3Crect%20x%3D%2287%22%20y%3D%2236%22%20width%3D%226%22%20height%3D%2230%22/%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2274%22%20r%3D%2210%22/%3E%3Cpath%20d%3D%22M84%2082%20L76%20140%20H82%20L88%2092Z%20M96%2082%20L104%20140%20H98%20L92%2092Z%20M88%2084h4v56h-4z%22/%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%22116%22%20r%3D%2214%22/%3E%3Cpath%20d%3D%22M50%20140h80v6H50z%22/%3E%3C/g%3E%3C/svg%3E%0A">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Fee%27s%20Shanghai%20Trip%22%2C%22short_name%22%3A%22Shanghai%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23eceef0%22%2C%22theme_color%22%3A%22%23eceef0%22%2C%22start_url%22%3A%22.%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAQAElEQVR4nOydCXhUVZbHT1W2qiyVHSGYsCmCtAOCw86A0AjTSkAbpsUNu7W73RrBbm2RaXEDbVtlUT51WkUdFRRmFBCFUWjoZlXZBNlkCYQshKqEVFJVSSWpzDkPig7Jq6SSVL271P193/vuq1fvvUre/depc8%2B999xoYEhaWpoNi8EmkykLy464dcL9Tv79C2UiKHiiErdi3Ipoq6%2Bvb7hP5fbS0lInMMIEBmOz2a6Ijo6%2BCYU7AV%2BOwDIGFNKAoq7B4u9Yrq6trV3jdDqPgoEYIeiojIyMEViSgG/CrScoIokjuK2mzW63b8ayDsJIOAVtTk9PvxPLp9EKdwFFxINWOw%2BLPzkcjo%2Bw9EEYCIug0SLn4h8/F4X8E1AoGoHa2Ofz%2BWaVlZWtgRATUkGjRR6ExQIU8mBQKFpmCwr7MWxEboUQERJBY7TiarPZ/Gc47yMrFK2CGpAo7CfQYu%2BHdtJuQV/wk5egVY4ChaKNoKjrcPs1Wusl0A7aI0ITivlZFPJ83MygULQD0hBuE%2BPj481ut3sTtJG2WugYFPMy/ANuAYUi9CzHEN8dWHqhlbRa0ElJSelxcXGf4e5wUCjCx6bq6urJFRUV9tZc1CpBJycnd4uJifkad7uDQhF%2BjtXU1NxQXl5%2BPNgLghY0xpaTsPgOVE%2BfwkCwoXgYt4HBjg8JtjFnwpsuByVmhcFgO%2B0qDAkvgyCNb1BRDmwAvoA3ngYKBRuutFqtFo/H83VLJ7YoaOw0uQe/IS%2BCQsEQNKjDLRbLQRT1D82e19ybKOaheKONaoinghM8dXV1Y7FHcUugEwIKGsV8OVrmXbibCQoFP5zFbvL%2B2Eg8rfdmwEYhWuXXQIlZwR%2BZF7Spi66FTk1NHRYVFbUZFApOQdejL7oe3zc%2BrmuhUcxzQaHgmECBiiYWGjtQRmHxN1Ao%2BOd6u92%2BseEBPQv9LCgUYvBU4wOXCBo7UCaBGnSkEIeRGI0b3/BAYwv9DCgUAoG%2B9AuXvPbvpKSk9MNwyDWgUIhFX/QsevlfXBQ0RjbGg0IhJpP8O2a9gwqFYFzUrha2S0hI6GixWArR5TA8NZjoXHF1HHS5Mha69oyDrlfGQWpGFFisJtzMYIk3a2Wi7fwYsEpnHVR5fFDl9p0vPfVQZq%2BDvB%2BrIe8IbV44drAaFK2jHkHpdsYQXlE0HbBaraRwJeYW6Nw1BvoPTYB%2Bg63Q8xoLZHePa9X1JGy/uBsyYlzSJa/zj1fDkX3VsHubC777hwuKT9eCIjAXDPFE3N7QRIxO9Vo8Ng4Ul5DZMQoGDE%2BAa4fSFg8dOrEZdFiU74VdW92we6sL9m53w9nisKaHExI00uscDsd4E02twhd2FHQsKMCaYIJ/G58EYybaoP%2BwBIiO5uuHq7a2HnZudsH6lU74x7oK8LjqQaEJ2otbpgkD04MxlrcNIpjYOBMMGZMAoyfYYPDoRIiziJFmpLrKB9s3VML6VU4sXeCtjmxx%2B3y%2BIZQsZhJa508hAiEhj59ig1t/mw5ZOWL/QBWc9MKyNx2wboUzYoWNFvpmstAz0ELPhwgiIckEE%2B9IhZ//KhXSO8g1GcdRUgMr3i6DVR%2BWgasisoSNFnpmVHx8PFnoiBi/YTLVw83TUuG5/7ocho5NgvgE%2BdLx0f903YgEmDA1BVyVdRgtqYIICmDtJZfj3UiY0d13kBV%2B99RlGDe2gFGM6nJI9/jGk73AKI4eqIJXnzoDe3d4QHbQ5XgvGsXcFSSmU04M3DcrE0b%2BzAaRCH2BF37SBTauccLiZ85IHfIjLZtR1R1BUsZPtsE7a7tFrJgbMupGG7y3vjuMvVneZ0FapviUdIJOtJlh3tud4fGXszCurDL9%2BolPjILZC7KwDdFZe0YS0pFy8iaDRPTpb4UlX3WDoT9NAoU%2Bw7Gr/Z113eCa66wgE6Rlab6mZnM9/PKRdFi0Ige7rFVenJbokBUDCz7JgbtnZmjPThakEDSNbpv7VjZMezgToqLUGKtgoWd194wM7dnRM5QB4QVNvuD8ZTnYda1WUG4r9OzoGcrgVwv9H2R2ioZFy3Ogdz%2B5fEEW0DOkZ5mSLnZnk7CC7twlBhb/bxfo3su4jhLZoWdJz5SeragIKehefS3wGj54atgoQkvnrrHas%2B12VesmL/CCcIJO7xANT76WBakZ0aAID/Rsn/trZ%2B1Zi4ZQgralmOGlD7OFH%2BopAp27xMJLH2QL1zElzF9LY5dffD8buvUU86dQRMjtmIuWmp69KAgh6ChseD/9emf0nVU0w2hoGtqcxVlaHYiAEIK%2Bc3qGijMzZNjYJK0ORIB7QfcbEg93TU8HBVuoDgYMiwfe4VrQlLTlyVezwGxW3dmsoTqgkXppmXz7HtwKmlKHkJjTMlV4jhfSMIxHouYZbgU99b40LcGLgi8o8c7ke1KBV7gUdE6PWG1Yo4JPfvPHTOhyBZ99AVwK%2BqE5HTD2qWaa8ArVzYNPdgAe4U41w29IgIEjVYiOd6iOBo7kzyXkStAxsSaY/rS0c3al44E/ddDqjCe4EvTtD6arEXQCQfmwp3DWQORG0DRbYvIv%2BW09K/SZen86VzNduPlLJt%2BTBonJ8qXmkp0krLPc21OAF7gQNI3mUtZZXG7BuuNlRB4Xgs69I0Uq61xXVw/b1ldSJp%2BLG%2BHfp/foHFnIuCxGq0MeoAz%2BTJ8sfbOXbu4h5OwIPShP87yZhfDDzqpmz%2BszwAJPzM/SBtLLgP1MDfxiyDH8ogJTmFvocZNt0oj586VlcO%2B/57UoZoLOoXPXfHwOZICsNA9585gLekyuHJnIVn5QBi89fgY8Ll/Q19C5f3msWLtWBkbnRrigk9OitLzNolOQVw2vzy2BtkLX0j1Eh5a8oyG/LGEqaPqJEn2tT5%2BvHuY9UgRV7rY3Reja539frN1LZKJjTNrqYSxhKmjK3yw6B/d4gvKZW2L/dx7tXqLDuk6ZCZqWFL7iavHdjQO7QifCUN6LFVSn2T3YDV9gJujh4%2BTI33xgT/utczjuxZJBo9iNlmQm6H6D%2BZ9wGQzKQjeFZd0yETQNObz6WjmSLIZykUtZFsy85l/jgVVbn4mg%2BwywSjMjhdoCPN6LJcmpUdCjN5v/hYmqZHE3iFCue2jkGorhhvKpsEAJup0oC60PqzpmImiZKm7ITxOhe6/2DzDq2jMWho6VZy5lxAg60WbCTZ6horS2NiVfiW5H6JWunfNaFljj5XkuVMdU10ZjuKBzesiXDrdHbwv89vFMaCt0bber5Ftao%2BPlxg%2BNZSBoOZOVT7k3HR6Zd1mrEoSTBZv1SkftWhnJYZCMxvCByB2z5c2%2BT%2Btp09ju5W%2BXwZ5t7mbPpSgApTuTeQWv87/GFWAkhgs6u7u8aQoKT3lh%2BwYXLFiWA/nHvbB3hws3D3z/jRtoFhYNlf2XgfFYxmuV/fKsYm0IrS1FTlF3vNz4iRuGuxzpHeQVdMEJL3z1aTl43D784sbCTVNT8bUTzhTUQklhLe5XwITbUjUx0zl0Ll0jKxHhQ4u0XkdrKTxVA1Weevj6M2eL59I5dC5dIyss6ppB2E7eJIyFJ89b288/anmeoP8c/zUywqKuDf/EhCR5BV1w8ry1PbyvCo4fCjwUlN6jcxpeIyMRYaHjLBILOu%2Bf1vbT9wJb6YbvNbxGNlgkclQ%2BdIiorvKBo%2BSfSSm%2B%2Bqwc3K6mSSr8jUE/dI23KviZ4iKRxCB5kMoqHiIa%2B8I08XX9yqaNQ39jsCGnJbbSRmO4oGUZxN4YvWjFap3GoV6DUdZIR0W58WmUDBd0taQ/r3q%2BMHWuNDl2omn%2BDVkjHTVe442X4YJ2VUgqaJ1ohV7euk46Xf%2Byuhwsfo0NF3SlU05B61lZva5fvWOFkobuWNS18qFDhJ4frDcQS%2B%2BYrD50pTMCfOji03L%2BvBbk6Qi6c3RQx4rza6TKF%2B2n9GwtGA0DQRv/T4abggCNumAttM9Hopbvi86irg0X9Klj4mfZbEygKEWwPrR2DwndDhZ1bfiA1VNH5bNEgcSoN3wy0JBKGRuGLOpa%2BdAhQC8GnZCkPxmYuoPpvSb3kCwWTW0CFuNUGITt6pm0fsOJXsU1N7hd7z3ZBimdLaoBjzsC4tDEnu1ukImGLod/pSuPqw5%2BN/nkJSth0UbHaIBSw9WxGt9DBo4eYNNWUoIOARSyayhQWpWg8FQt7PvWo%2B033OgY%2BcsNVy6g6/TCfiLDqo7ZCHqbPIIuKfJeHJ/iF22w%2BM%2Blku5xtlget4NVHTMR9LGD1VBeJocf/fnS86PnQrFWzLoV5SADleV1keVy0C/zvm/Ft9KbvnDC%2BwsdIREz3eOtv9hh/SrxRb1nB7u6ZTbAX3Q/%2BuiBKpg3swj3QjkDxwQvPloMR/aLncmfZd0yE/SOjZUgKhRjfXZ6Ifq9oQ9L0T2ff6RI6LEdLOuWmaDzj9WglRPTEpHffPLH8DXgThz2XvTNRYPqlOqWFUznFK5d0XJCFt5wV9bBklfsEG7enW8HV4V4DWfWdcpU0DSJtGHngghs%2BrICzjnCL7Qyex38fa2xiQ7bS21NcFmjwglTQVOlUTJDkTAyviraMm%2B7troM%2BbI3B/M0BmuXi%2BUrUuJFo8g/Llbv4YZV7F1I5oLesLoC7GfEqbgiAwfiO0rEeS6OklqtLlnDXNA0x3DZm6UgCkZOK2IxhamtLH3DwcV8US4yJ6364ByTpCSK0EBd3VSHPMCFoOmb/T9LykAE0jKNm%2BRj5Ge1hxVYd7zM5ucmt92Kt0uFyKpkpMhEWO2A6ozqjhe4ETQlJVn6Bv%2B%2BtJGLhvYQYIFSqjOekgdxlX30w8UODIvx3bIfPi4JjGL0BOM%2Bqy2UFNZodcYTXAmakvu9%2BlQx8MzAkQlwZZ/wW84eveOgT3%2B%2B10RfNKeYSULG5uAuP/Tm/3PBN5v4HYlH45bvejgDws3dM8P/Ge2B6ojqije4THi%2B%2BJkSrodPDr8hEeITwrcSgRXvPWIcv%2B6Gt9qHv6QlwCNcCvrkUS/896t8%2BWYNISsdn2QOy8AquifvCyvRSEC93Nc8wO2Te2%2BBHXZu5u8njaBfj9KS0HcE%2Bb8gdG9ef6F2bnFxHY3iVtBUt3NnFGLl8tf9S4kVKcEiWerG%2BTXaCt3DP2uc1%2BSNVBdzHy4Enkf8cv3bVnq2ThM1bzRMChOKCbItfQYvPIdipjrhGe5Xwdq5xY09UXz5040TK/ot9agbE7F3L/ilzOjckT9LvGidm/sM1lAd7NrK/8RmIQYLvD73LHTvZYH%2BwxKAB/QSK5Igx0xMhtkLs2D/tx7Y/jcXHNjtge%2B/uVQEfQfFY3zZCoOuT4A%2BA6ywfYMLNn1RGdRnsGLb%2BkqtDkRACEHX4a/c7F8XwCsfZUPvflZgTaDEipT7OSbGDNcOTdA2YlSXQ5ecs2h5lybXtOYzjObQXg/Mub9AqwMREGbhTY/LB3%2Bclg8nDrNPmN6afNAtETBfNAc%2B9Ikj1fDYXflCrYsj1EqyIsChaQAABX1JREFUznM%2B%2BMMd%2BcxnuOglVqScz21ZCjhgvmjGyRsLT3nhD7fna89cJIRbGpmm%2BjyKomaVG4%2B%2BTHoWqy3Wublr6TNYfXHp2f7%2BtnztWYuGkGt9nzjihQcm5mmjvYymOf%2B5rfDkR1Nj9P7cPCjKFzO9r7CL19PKrQ/echKOH6oCIykIEE7TW90qWAJdW2Bw6I585gcmnRQ6%2BbqwgibOFtXC9CmnYPdW47rIA8WH9dYfDJZA1xoZi6YEiw%2BhgSgvFXtup9CCJmi2xGPTTmuxUiOgxpIe4bDQgT4r1Gxc44RH78yXYh124QVN0CDz2ffmwzsvnw37oB6ZfGh6Vu8usMMzDxVwN1C/rUghaMLnM8H7ixww4z9OhbWxGNCHDnGUo7nPCgX0jOhZ0VBQenayYEpPTz%2BH3bbJoFAITn19fTlZaL4n8SkUwVNsRuusBK2QAtIytUaUoBWyUGxGv0MJWiEFpGVloRUyEdmCtlhNMG5yMvziN2mQldP2sBsPUCfMJ38thbXLy6HKI0dMuQ0Um9LS0sabzeYvIYIxm%2BthdK4Npt6XDj16W0Akjh2sgmVvOrT1amSKJ7eR600ZGRmd0PcoMIVrtqdgJCabYQyKe%2BzNNvjJAP5ScdH8w7073NriPBu/qIDKcvG7q0MBPhdvVVVVjiZi7FzZjnoeBIpLSMuM0qZS9R9q1UpWbgm5EzQAiyap7saN95nXLEBBr3M4HOP9gn4cBf08KJqFxlwMGE4CT4Ce18RBdvfwJG3MP14NB3ZXwZ5tLti9zQ3Fp8UbaM%2BA%2B%2B12%2Bxt%2BQfdCQR8ERauhLKFde8bihuWVcZCaEaU1Ni1WM1jizVqZaDs/NavSWYcNNh9UuX3nS2y80dJ2eT9WQ96Ram112qMH2M%2BZFA20zvXobnRyuVxnLvrNKOpDKOqrQKEQDNTzDnQ3BtN%2Bw9F2n4FCISYXtXtR0KhyJWiFqFzU7iWhOnQ7KHyXBQqFIKAhPozuRi//a3OjN%2B8BhUIgULMzGr5u0pmCHS0bsRgJCgX/bMJQ3aiGB5pMwaqrq5sNCoUA%2BHy%2BWY2PNRF0WVnZFjTjK0Gh4BjSaGlp6bbGx3UnyaLy/xMvUP2rCi4hbeKm60noChqt9H4sPgCFgkNQzG%2Bhdf5B772AI%2BwSExMz4%2BLivsMwXg4oFJyAYs73er39Kyoq7HrvB8zLUVlZeRYbiJNwl/91CBSRggc1mRtIzESziWbOnTu3G4t7QaHgAGzb3Y2a3NPcOS1m6Ha73futCLoew0GhYAS6Gn9Gv3lhS%2BcFO0uFZrasxvJGUCiM50vsQCHttThZMtjcdvVo7m/Db8khUCgMhMZqoPZuhSDETASdrBHNvRPdjkmUPwwUCgMgraHmckl7wV7TquyjaPYP4wdkq55EhQF8TlpDzR1pzUWtXrYJG4lej8fzMbYTLaqhqAgH6GK85HA4foVaa/V8tHalLsCGIvnVS1DYYmdpUfCCh0Jz6GJ8Am2k3bk40tLShqCgV6iJAYp2UoSdJuPLysq%2Bh3bQ%2BpUiG4Hux%2BnY2NglUVFR0Witr0Nht/ueisiBEsSgZhbW1NTcip0mJ6GdhDRbUkpKSlcU9nyKhoBC0QyUegB18nFtbe0sFHIehIiwpP9CN2Qofetwuw4UikaglmnQ230YwdgJISac%2BewoEeQUs9n8Au53A4UC4AT6yU%2Bgn/wxBNlR0lqMSNAYlZqaSg3H3AubSmYTWRzByMUqtMqrUMhb8XVYJ44YnnHUZrNdERMT83PczcVtMApcmqXlFOdnk2Cdbsbd1V6vd6XT6TwKBsI6hW4sCjwHoyTU%2B5iNr3OodwhLek0TC7LxtQ0U3ID1Qt3Q%2BVgvp6ikAff%2B1yjgfBQwHTd%2B1f0L/D8AAAD//yWHKakAAAAGSURBVAMAQKxsOWtZO/QAAAAASUVORK5CYII%3D%22%2C%22sizes%22%3A%22180x180%22%2C%22type%22%3A%22image/png%22%7D%2C%7B%22src%22%3A%22data%3Aimage/svg%2Bxml%2C%253Csvg%2520xmlns%253D%2522http%253A//www.w3.org/2000/svg%2522%2520viewBox%253D%25220%25200%2520180%2520180%2522%253E%253Crect%2520width%253D%2522180%2522%2520height%253D%2522180%2522%2520rx%253D%252240%2522%2520fill%253D%2522%2523141414%2522/%253E%253Ccircle%2520cx%253D%252290%2522%2520cy%253D%252290%2522%2520r%253D%252262%2522%2520fill%253D%2522%2523D4F53C%2522/%253E%253Cg%2520fill%253D%2522%2523141414%2522%253E%253Crect%2520x%253D%252287%2522%2520y%253D%252236%2522%2520width%253D%25226%2522%2520height%253D%252230%2522/%253E%253Ccircle%2520cx%253D%252290%2522%2520cy%253D%252274%2522%2520r%253D%252210%2522/%253E%253Cpath%2520d%253D%2522M84%252082%2520L76%2520140%2520H82%2520L88%252092Z%2520M96%252082%2520L104%2520140%2520H98%2520L92%252092Z%2520M88%252084h4v56h-4z%2522/%253E%253Ccircle%2520cx%253D%252290%2522%2520cy%253D%2522116%2522%2520r%253D%252214%2522/%253E%253Cpath%2520d%253D%2522M50%2520140h80v6H50z%2522/%253E%253C/g%253E%253C/svg%253E%250A%22%2C%22sizes%22%3A%22any%22%2C%22type%22%3A%22image/svg%2Bxml%22%7D%5D%7D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var KEY='feeShanghai.v1',mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
+  function hex(h){h=String(h||'').replace('#','');if(h.length===3)h=h.replace(/./g,'$&$&');if(!/^[0-9a-f]{6}$/i.test(h))h='D4F53C';return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]}
+  function toHex(c){return '#'+c.map(function(v){v=Math.max(0,Math.min(255,Math.round(v)));return (v<16?'0':'')+v.toString(16)}).join('')}
+  function mix(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t]}
+  function lum(c){var x=c.map(function(v){v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)});return 0.2126*x[0]+0.7152*x[1]+0.0722*x[2]}
+  function onText(c){var L=lum(c);return (L+0.05)/0.05>=1.05/(L+0.05)?'#111111':'#ffffff'}
+  function contrast(a,b){var A=lum(a),B=lum(b);return (Math.max(A,B)+0.05)/(Math.min(A,B)+0.05)}
+  function readable(acc,bg,dir){var c=acc,i=0;while(contrast(c,bg)<4.5&&i<20){c=mix(c,dir,0.12);i++}return toHex(c)}
+  function apply(ap){
+    ap=ap||{};var pref=ap.theme||'auto';
+    var dark=pref==='dark'||(pref==='auto'&&mq&&mq.matches);
+    var acc=hex(ap.accent||'#D4F53C'),r=document.documentElement,st=r.style;
+    r.setAttribute('data-theme',dark?'dark':'light');
+    var card=dark?[28,28,31]:[255,255,255];
+    st.setProperty('--acc',toHex(acc));
+    st.setProperty('--acc-ink',onText(acc));
+    st.setProperty('--acc-soft',toHex(mix(acc,card,dark?0.75:0.6)));
+    st.setProperty('--acc-text',readable(acc,card,dark?[255,255,255]:[0,0,0]));
+    st.setProperty('--acc-glow','rgba('+acc.map(Math.round).join(',')+','+(dark?.28:.45)+')');
+    var m=document.getElementById('themeColor');if(m)m.setAttribute('content',dark?'#0e0e10':'#eceef0');
+  }
+  function read(){try{var o=JSON.parse(localStorage.getItem(KEY)||'{}');return o.appearance||{}}catch(e){return {}}}
+  window.__shTheme={apply:apply,current:read};
+  apply(read());
+  if(mq){var h=function(){apply(window.__shTheme.live?window.__shTheme.live():read())};if(mq.addEventListener)mq.addEventListener('change',h);else if(mq.addListener)mq.addListener(h)}
+})();
+</script>
+<style>
+:root{--acc:#D4F53C;--acc-ink:#111;--acc-soft:#eefbb8;--acc-text:#4a5a00;--acc-glow:rgba(190,230,40,.45);
+--bg:#eceef0;--card:#ffffff;--card2:#f4f5f6;--tile:#f1f2f4;--ink:#141414;--mut:#8b8d92;--t2:#55575c;--line:#e4e5e8;--bd:#e2e3e6;
+--dark:#141414;--dark-fg:#fff;--nav:#121212;--navi:#c9c9c9;--sheet:#fff;--shade:rgba(0,0,0,.35);--red:#ef4b4b;--chip:#fff;
+--mist1:#c9d8ea;--mist2:#8fb0d4;--mist3:#4f7fb3;--sky1:#f3f5f7;--sky2:#e3eaf2;--sil:#2d4f78;--r:28px;color-scheme:light}
+html[data-theme=dark]{--bg:#0e0e10;--card:#1c1c1f;--card2:#242428;--tile:#2a2a2e;--ink:#f2f2f3;--mut:#9a9aa0;--t2:#c3c3c8;--line:#2f2f33;--bd:#38383d;
+--dark:#f2f2f2;--dark-fg:#111;--nav:#000;--navi:#a5a5aa;--sheet:#1c1c1f;--shade:rgba(0,0,0,.6);--red:#ff6b6b;--chip:#232327;
+--mist1:#2b3b52;--mist2:#304d72;--mist3:#3e6799;--sky1:#14171c;--sky2:#1a2230;--sil:#7aa3d6;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:Urbanist,"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Noto Sans SC",sans-serif;font-size:15px;line-height:1.4;-webkit-font-smoothing:antialiased;min-height:100vh}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,textarea,select{font:inherit;color:var(--ink)}
+.zh{font-family:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#app{max-width:520px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 18px calc(110px + env(safe-area-inset-bottom));position:relative;overflow-x:hidden}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:6px;position:relative;z-index:2}
+.av{width:46px;height:46px;border-radius:50%;background:var(--dark);color:var(--acc);display:grid;place-items:center;font-weight:800;font-size:19px;position:relative;flex:none}
+html[data-theme=dark] .av{background:#2a2a2e}
+.av small{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);background:var(--acc);color:var(--acc-ink);font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px}
+.hi{flex:1;min-width:0}.hi b{display:block;font-size:19px;font-weight:600}.hi span{font-size:13px;color:var(--mut)}
+.round{width:46px;height:46px;border-radius:50%;background:var(--card);display:grid;place-items:center;flex:none;box-shadow:0 1px 0 var(--bd)}
+.hero{position:relative;margin:4px -18px 0;padding:10px 18px 0;min-height:200px}
+.hero .art{position:absolute;right:-30px;top:-40px;width:300px;height:260px;z-index:0;pointer-events:none}
+.h1{position:relative;z-index:1;font-size:44px;line-height:1.08;font-weight:500;letter-spacing:-.5px;margin:14px 0 18px}
+.hl{background:var(--acc);color:var(--acc-ink);padding:0 10px;border-radius:14px;display:inline-block;line-height:1.12}
+.chips{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:2px 18px 6px;position:relative;z-index:1}
+.chips::-webkit-scrollbar{display:none}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--chip);border-radius:999px;padding:6px 16px 6px 6px;white-space:nowrap;font-weight:500;font-size:14px;box-shadow:0 1px 0 var(--bd)}
+.chip .ic{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--bd)}
+.chip.on{background:var(--dark);color:var(--dark-fg)}
+.chip.on .ic{border-color:transparent;background:rgba(255,255,255,.12)}
+.chip.sm{padding:9px 16px;font-size:13.5px}
+.chip.sm.on{background:var(--dark);color:var(--dark-fg)}
+.sec{display:flex;justify-content:space-between;align-items:baseline;margin:22px 2px 10px}
+.sec h2{font-size:19px;font-weight:600;margin:0}.sec a,.sec button.lnk{font-size:13px;color:var(--mut)}
+.card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:12px;position:relative}
+.card h3{margin:0 0 4px;font-size:18px;font-weight:600}
+.mut{color:var(--mut)}.t2{color:var(--t2)}.tiny{font-size:12px;color:var(--mut)}.small{font-size:13px}
+.row{display:flex;align-items:center;gap:10px}.sp{flex:1;min-width:0}
+.cd{display:flex;gap:6px;align-items:center}
+.cd span{background:var(--red);color:#fff;font-weight:700;border-radius:8px;padding:4px 7px;font-size:13px;min-width:30px;text-align:center}
+.cdbig{display:flex;gap:8px;margin-top:12px}
+.cdbig div{flex:1;background:var(--tile);border-radius:18px;padding:10px 6px;text-align:center}
+.cdbig b{display:block;font-size:26px;font-weight:700;line-height:1.1}.cdbig small{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+.feat{padding:8px;border-radius:32px}
+.feat .ph{height:180px;border-radius:24px;position:relative;overflow:hidden;background:linear-gradient(180deg,#bcd3ec,#e8eef5 70%)}
+.feat .ph>svg{position:absolute;inset:0;width:100%;height:100%}
+.badge{position:absolute;top:12px;left:12px;background:#fff;color:#111;border-radius:999px;padding:6px 12px;font-weight:600;font-size:13px;display:flex;gap:6px;align-items:center;z-index:2}
+.badge.r{left:auto;right:12px}
+.feat .bot{display:flex;align-items:center;gap:10px;background:var(--tile);border-radius:22px;padding:10px 14px 10px 10px;margin-top:8px}
+.feat .bot .ic{width:38px;height:38px;border-radius:50%;background:var(--card);display:grid;place-items:center}
+.price{font-size:22px;font-weight:600}
+.bk{display:flex;align-items:center;gap:12px;background:var(--tile);border-radius:18px;padding:13px 14px;margin-top:8px}
+.bk .v{margin-left:auto;font-size:13px;color:var(--t2);text-align:right}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:6px 0;font-size:14px}.kv span:first-child{color:var(--t2)}.kv b{font-weight:600;text-align:right}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:54px;border-radius:999px;background:var(--acc);color:var(--acc-ink);font-weight:600;font-size:15px;margin-top:12px}
+.btn.dark{background:var(--dark);color:var(--dark-fg);justify-content:space-between;padding:0 22px 0 6px}
+.btn.dark .ic{width:44px;height:44px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center}
+.btn.ghost{background:var(--tile);color:var(--ink)}
+.btn.sm{height:42px;font-size:14px;margin-top:8px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--tile);color:var(--t2)}
+.pill.acc{background:var(--acc-soft);color:var(--acc-text)}
+.pill.warn{background:#ffe7d6;color:#9a4a00}
+html[data-theme=dark] .pill.warn{background:#4a2c14;color:#ffc48a}
+.flight{padding:18px}
+.fl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.fl-mid{display:flex;align-items:center;gap:10px}
+.fl-mid .ap b{display:block;font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.fl-mid .ap span{font-size:12px;color:var(--mut)}
+.fl-mid .ap.r{text-align:right}
+.fl-line{flex:1;display:flex;align-items:center;gap:6px;color:var(--mut)}
+.fl-line i{flex:1;border-top:2px dashed var(--bd)}
+.fl-line .pl{width:34px;height:34px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center}
+.fl-times{display:flex;justify-content:space-between;margin-top:12px;font-size:14px}
+.fl-times b{font-size:20px;font-weight:600;display:block}
+.perf{border-top:2px dashed var(--line);margin:14px -18px 12px;position:relative}
+.perf:before,.perf:after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.perf:before{left:-10px}.perf:after{right:-10px}
+.ref{display:flex;align-items:center;gap:8px;background:var(--tile);border-radius:16px;padding:6px 6px 6px 14px;margin-top:8px}
+.ref label{font-size:12px;color:var(--mut);white-space:nowrap}
+.ref input{flex:1;min-width:0;border:0;background:transparent;font-weight:600;font-size:15px;padding:8px 0;outline:none;letter-spacing:.5px}
+.ref button{width:36px;height:36px;border-radius:50%;background:var(--card);display:grid;place-items:center}
+.days{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:2px 18px 4px}
+.days::-webkit-scrollbar{display:none}
+.day{flex:none;width:58px;padding:10px 0;border-radius:22px;background:var(--card);text-align:center}
+.day small{display:block;font-size:11px;color:var(--mut)}.day b{display:block;font-size:20px;font-weight:700}
+.day i{display:block;width:6px;height:6px;border-radius:50%;margin:3px auto 0;background:transparent}
+.day.has i{background:var(--mut)}
+.day.on{background:var(--dark);color:var(--dark-fg)}.day.on small{color:inherit;opacity:.7}.day.on.has i{background:var(--acc)}
+.tl{position:relative;padding-left:4px}
+.act{display:flex;gap:12px;background:var(--card);border-radius:22px;padding:14px;margin-bottom:10px;align-items:flex-start}
+.act .tm{flex:none;width:56px;font-weight:700;font-size:15px;padding-top:1px}
+.act .tm small{display:block;font-weight:500;font-size:11px;color:var(--mut)}
+.act .bd{flex:1;min-width:0}.act .bd b{font-weight:600;display:block}.act .bd .tiny{margin-top:3px}
+.act .ops{display:flex;gap:4px}
+.act .ops button{width:32px;height:32px;border-radius:50%;background:var(--tile);display:grid;place-items:center}
+.act .ops svg{width:16px;height:16px}
+.empty{text-align:center;padding:26px 16px;color:var(--mut);background:var(--card);border-radius:22px}
+.search{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:999px;padding:6px 6px 6px 18px;margin:8px 0 12px}
+.search input{flex:1;border:0;background:transparent;outline:none;font-size:15px;padding:10px 0;min-width:0}
+.search .round{width:42px;height:42px;background:var(--tile);box-shadow:none}
+.spot{display:flex;gap:12px;align-items:flex-start}
+.spot .th{width:62px;height:62px;border-radius:18px;flex:none;display:grid;place-items:center;color:#fff}
+.spot .th svg{width:26px;height:26px}
+.spot h4{margin:0;font-size:16px;font-weight:600}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.addday{margin-left:auto;flex:none;height:36px;padding:0 14px;border-radius:999px;background:var(--dark);color:var(--dark-fg);font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px}
+.addday svg{width:16px;height:16px}
+.taxi{background:var(--dark);color:var(--dark-fg);border-radius:var(--r);padding:20px;margin-bottom:12px}
+.taxi .big{font-size:30px;font-weight:700;line-height:1.25;margin:8px 0}
+.taxi .tiny{color:inherit;opacity:.7}
+.taxi .btn{margin-top:14px}
+.ph-row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.ph-row:last-child{border-bottom:0}
+.ph-row .zh{font-size:19px;font-weight:600;grid-column:1}.ph-row .py{font-size:12.5px;color:var(--acc-text);grid-column:1}.ph-row .en{font-size:13px;color:var(--t2);grid-column:1;grid-row:1}
+.ph-row button{grid-column:2;grid-row:1/4;align-self:center;width:38px;height:38px;border-radius:50%;background:var(--tile);display:grid;place-items:center}
+.chk{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.chk:last-child{border-bottom:0}
+.chk .bx{width:26px;height:26px;border-radius:9px;border:2px solid var(--bd);display:grid;place-items:center;flex:none}
+.chk.done .bx{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.chk.done .lb{color:var(--mut);text-decoration:line-through}
+.chk .lb{flex:1;min-width:0}.chk .lb small{display:block;font-size:12px;color:var(--mut);text-decoration:none}
+.chk .x{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:var(--mut)}
+.chk .x svg{width:15px;height:15px}
+.addline{display:flex;gap:8px;margin-top:10px}
+.addline input{flex:1;min-width:0;height:44px;border-radius:999px;border:1px solid var(--bd);background:var(--tile);padding:0 16px;outline:none}
+.addline button{width:44px;height:44px;border-radius:50%;background:var(--dark);color:var(--dark-fg);display:grid;place-items:center;flex:none}
+.sos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sos a{background:var(--tile);border-radius:20px;padding:14px 8px;text-align:center;color:inherit;text-decoration:none}
+.sos b{display:block;font-size:26px;font-weight:700}.sos small{font-size:12px;color:var(--mut)}
+.fld{margin-bottom:12px}.fld label{display:block;font-size:12.5px;color:var(--mut);margin:0 0 5px 4px}
+.fld input,.fld textarea,.fld select{width:100%;border:1px solid var(--bd);background:var(--tile);border-radius:16px;padding:12px 14px;outline:none;font-size:15px}
+.fld textarea{min-height:72px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.conv{display:flex;align-items:center;gap:8px}
+.conv .fld{flex:1;margin:0}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--tile);border-radius:999px;padding:4px;gap:4px;margin-bottom:10px}
+.seg button{height:40px;border-radius:999px;font-weight:600;font-size:14px}
+.seg button.on{background:var(--dark);color:var(--dark-fg)}
+.swatches{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 8px}
+.sw,.swc{width:40px;height:40px;border-radius:50%;border:3px solid transparent;box-shadow:0 0 0 1px var(--bd)}
+.sw.on,.swc.on{border-color:var(--card);box-shadow:0 0 0 2px var(--ink)}
+.swc{position:relative;overflow:hidden;background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red);display:block;cursor:pointer}
+.swc input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom));display:flex;gap:6px;align-items:center;background:var(--nav);border-radius:999px;padding:7px;z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+nav button{height:50px;min-width:50px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--navi);border:1px solid rgba(255,255,255,.14);padding:0 13px}
+nav button span{display:none;font-weight:600;font-size:14px}
+nav button.on{background:var(--acc);color:var(--acc-ink);border-color:transparent;padding:0 16px}
+nav button.on span{display:inline}
+.sheet-bg{position:fixed;inset:0;background:var(--shade);z-index:30;display:flex;align-items:flex-end;justify-content:center;animation:fd .15s}
+.sheet{background:var(--sheet);width:100%;max-width:520px;border-radius:30px 30px 0 0;padding:10px 18px calc(18px + env(safe-area-inset-bottom));max-height:90vh;overflow:auto;animation:up .2s}
+.sheet .grab{width:44px;height:5px;border-radius:3px;background:var(--bd);margin:0 auto 12px}
+.sheet h3{margin:0 0 14px;font-size:20px;font-weight:600}
+@keyframes up{from{transform:translateY(40px);opacity:.4}}@keyframes fd{from{opacity:0}}
+.full{position:fixed;inset:0;background:#fff;color:#111;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center}
+.full .z1{font-size:42px;font-weight:800;line-height:1.3}.full .z2{font-size:28px;font-weight:600;margin-top:16px;line-height:1.4}
+.full .en{font-size:16px;color:#666;margin-top:18px}
+.full button{margin-top:30px;height:50px;padding:0 30px;border-radius:999px;background:#111;color:#fff;font-weight:600}
+.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--dark);color:var(--dark-fg);padding:11px 18px;border-radius:999px;font-weight:600;font-size:14px;z-index:50;white-space:nowrap}
+.note{font-size:12.5px;color:var(--t2);background:var(--tile);border-radius:16px;padding:10px 12px;margin-top:10px}
+.wx{display:flex;align-items:center;gap:14px}
+.wx .ic{width:56px;height:56px;border-radius:20px;background:var(--acc-soft);color:var(--acc-text);display:grid;place-items:center}
+.wx .ic svg{width:28px;height:28px}
+.wx b{font-size:26px;font-weight:700}
+.opt{display:flex;align-items:center;gap:12px;background:var(--tile);border-radius:18px;padding:12px 14px;margin-top:8px}
+.opt .v{margin-left:auto;font-weight:700;white-space:nowrap}
+hr.s{border:0;border-top:1px solid var(--line);margin:12px 0}
+.subnav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -18px 4px;padding:2px 18px 6px;position:sticky;top:0;z-index:3;background:var(--bg)}
+.subnav::-webkit-scrollbar{display:none}
+.ttl{font-size:30px;font-weight:600;margin:12px 0 2px;letter-spacing:-.3px}
+a.lk{color:var(--acc-text);font-weight:600}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav id="nav"></nav>
+<script>
+(function(){
+'use strict';
+var KEY='feeShanghai.v1';
+var TRIP_DAYS=['2026-11-28','2026-11-29','2026-11-30','2026-12-01','2026-12-02','2026-12-03','2026-12-04','2026-12-05','2026-12-06'];
+var DEPART=Date.parse('2026-11-28T09:20:00+08:00'),RETURN_ARR=Date.parse('2026-12-06T22:15:00+08:00');
+var ACCENTS=[['Lime','#D4F53C'],['Mint','#5EE6B0'],['Sky blue','#5AB8FF'],['Lavender','#B79CFF'],['Coral','#FF7A6B'],['Amber','#FFB833']];
+var P={
+home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+plane:'<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',
+bed:'<path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/>',
+car:'<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>',
+compass:'<circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2 6.4-6.4 2 2-6.4z"/>',
+cal:'<rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+bag:'<rect x="2" y="7" width="20" height="14" rx="3"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+sliders:'<path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.5"/><circle cx="10" cy="12" r="2.5"/><circle cx="18" cy="18" r="2.5"/>',
+copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',
+trash:'<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>',
+edit:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+pin:'<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+metro:'<rect x="5" y="3" width="14" height="15" rx="3"/><path d="M5 11h14M9 18l-2 3M15 18l2 3"/><circle cx="9" cy="14.5" r=".6"/><circle cx="15" cy="14.5" r=".6"/>',
+food:'<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>',
+shop:'<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/>',
+sight:'<path d="M3 21h18M5 17v-6M9.5 17v-6M14.5 17v-6M19 17v-6M12 3l9 5H3z"/>',
+mount:'<path d="m8 3 4 8 5-5 5 15H2z"/>',
+sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+check:'<path d="M20 6 9 17l-5-5"/>',
+x:'<path d="M18 6 6 18M6 6l12 12"/>',
+star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2-6.2 3.2L7 14.2 2 9.3l6.9-1z"/>',
+arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>'
+};
+function I(n,c){return '<svg class="i'+(c?' '+c:'')+'" viewBox="0 0 24 24" aria-hidden="true">'+(P[n]||'')+'</svg>'}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function uid(){return Math.random().toString(36).slice(2,9)}
+var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function dObj(k){var p=k.split('-');return new Date(Date.UTC(+p[0],+p[1]-1,+p[2]))}
+function dLabel(k,long){var d=dObj(k);return (long?WD[d.getUTCDay()]+', ':'')+d.getUTCDate()+' '+MON[d.getUTCMonth()]}
+function todayKey(){return new Date(Date.now()+8*3600e3).toISOString().slice(0,10)}
+
+/* ---------- Art ---------- */
+function skyline(id,mode){
+ var g='g'+id,card=mode==='card';
+ return '<svg viewBox="0 0 400 300" preserveAspectRatio="'+(card?'xMidYMid slice':'xMaxYMin meet')+'" xmlns="http://www.w3.org/2000/svg">'+
+ '<defs><linearGradient id="'+g+'m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--mist3)" stop-opacity=".95"/><stop offset="1" stop-color="var(--mist1)" stop-opacity="0"/></linearGradient>'+
+ '<linearGradient id="'+g+'m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--mist2)" stop-opacity=".8"/><stop offset="1" stop-color="var(--mist1)" stop-opacity="0"/></linearGradient>'+
+ '<linearGradient id="'+g+'t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--sil)" stop-opacity=".95"/><stop offset="1" stop-color="var(--sil)" stop-opacity=".15"/></linearGradient>'+
+ '<linearGradient id="'+g+'sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fbfe4"/><stop offset=".62" stop-color="#e6eef7"/><stop offset="1" stop-color="#f5ede2"/></linearGradient>'+
+ '<filter id="'+g+'b" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter>'+
+ '<filter id="'+g+'b2"><feGaussianBlur stdDeviation="1"/></filter></defs>'+
+ (card?'<rect width="400" height="300" fill="url(#'+g+'sky)"/><circle cx="330" cy="64" r="24" fill="#fff7dc" opacity=".95"/>':'')+
+ '<path filter="url(#'+g+'b)" fill="url(#'+g+'m1)" d="M150 300 C190 210 215 120 260 60 C285 30 300 40 315 70 C335 110 350 90 372 120 C392 150 400 200 410 300Z"/>'+
+ '<path filter="url(#'+g+'b)" fill="url(#'+g+'m2)" d="M40 300 C90 240 140 210 190 170 C215 150 230 160 250 180 C290 215 330 205 420 230 L420 300Z"/>'+
+ '<g fill="'+(card?'#2d4f78':'url(#'+g+'t)')+'" filter="url(#'+g+'b2)" opacity="'+(card?'.85':'1')+'">'+
+  '<rect x="236" y="70" width="3" height="40"/><rect x="230.5" y="96" width="14" height="4" rx="2"/><circle cx="237.5" cy="118" r="9"/>'+
+  '<path d="M233 124 L229 210 L233 210 L236 132Z M242 124 L246 210 L242 210 L239 132Z M236 126h3v84h-3z"/><circle cx="237.5" cy="182" r="14"/>'+
+  '<path d="M292 210 L296 92 Q302 70 310 64 L314 66 Q312 120 318 210Z"/>'+
+  '<path d="M268 210 L271 100 L285 96 L287 210Z"/>'+
+  '<path d="M252 210 L254 130 L256 128 L257 112 L259 110 L260 96 L262 94 L263 80 L265 94 L267 96 L268 110 L270 112 L271 128 L273 130 L275 210Z"/>'+
+  '<rect x="200" y="170" width="16" height="40"/><rect x="214" y="185" width="14" height="25"/><rect x="322" y="160" width="18" height="50"/><rect x="340" y="178" width="22" height="32"/><rect x="178" y="190" width="20" height="20"/>'+
+ '</g>'+
+ (card?'<circle cx="237.5" cy="118" r="5" fill="#d86a93" opacity=".9"/><circle cx="237.5" cy="182" r="8" fill="#d86a93" opacity=".9"/><path d="M272 106 l12 -3 v6 l-12 2z" fill="#e6eef7"/>':'')+
+ '<path d="M140 214 C220 206 300 220 420 210 L420 300 L140 300Z" fill="'+(card?'#9cb8d6':'url(#'+g+'m2)')+'" opacity="'+(card?'.75':'.55')+'"/>'+
+ '<path d="M170 226 h60 M250 234 h50 M320 224 h40 M200 246 h40" stroke="#fff" stroke-opacity=".7" stroke-width="1.5" stroke-linecap="round"/>'+
+ '</svg>';
+}
+
+/* ---------- Data ---------- */
+var SPOTS=[
+ {id:'bund',en:'The Bund',zh:'外滩',cat:['Sights'],area:'Huangpu',metro:'Line 2 / 10 · East Nanjing Rd',c:'#2d5a8a',ic:'sight',d:'Riverside promenade of 1920s buildings facing the Lujiazui skyline. Best at dusk when the lights come on.'},
+ {id:'yu',en:'Yu Garden & Old Town',zh:'豫园',cat:['Sights','Shopping','Food'],area:'Huangpu',metro:'Line 10 / 14 · Yuyuan Garden',c:'#a2483b',ic:'sight',d:'Ming-era classical garden with rockeries and ponds, surrounded by a busy bazaar.'},
+ {id:'njr',en:'Nanjing Road Pedestrian Street',zh:'南京路步行街',cat:['Shopping'],area:'Huangpu',metro:'Line 2 / 10 · East Nanjing Rd',c:'#d0813a',ic:'shop',d:'Neon-lit shopping street running from People\'s Square to the Bund.'},
+ {id:'ljz',en:'Lujiazui & Shanghai Tower',zh:'陆家嘴 · 上海中心大厦',cat:['Sights'],area:'Pudong',metro:'Line 2 · Lujiazui',c:'#3b6ea5',ic:'sight',d:'The skyline you see from the Bund. Shanghai Tower has one of the world\'s highest observation decks.'},
+ {id:'opt',en:'Oriental Pearl Tower',zh:'东方明珠',cat:['Sights'],area:'Pudong',metro:'Line 2 · Lujiazui',c:'#b1456f',ic:'sight',d:'The pink-sphered icon of Shanghai, with a glass-floor viewing level.'},
+ {id:'tzf',en:'Tianzifang',zh:'田子坊',cat:['Shopping','Food'],area:'Huangpu',metro:'Line 9 · Dapuqiao',c:'#6c8a3a',ic:'shop',d:'Maze of shikumen lanes with small boutiques, cafés and craft shops.'},
+ {id:'xtd',en:'Xintiandi',zh:'新天地',cat:['Shopping','Food'],area:'Huangpu',metro:'Line 10 / 13 · Xintiandi',c:'#7b5a3c',ic:'shop',d:'Restored stone-gate houses turned into a stylish dining and shopping quarter.'},
+ {id:'wkr',en:'Wukang Road & Wukang Mansion',zh:'武康路 · 武康大楼',cat:['Sights'],area:'Xuhui',metro:'Line 10 / 11 · Jiaotong University',c:'#9a6b3f',ic:'sight',d:'Leafy plane-tree street in the former French Concession, close to your hotel.'},
+ {id:'jat',en:'Jing\'an Temple',zh:'静安寺',cat:['Sights'],area:'Jing\'an',metro:'Line 2 / 7 / 14 · Jing\'an Temple',c:'#c79a2b',ic:'sight',d:'Golden Buddhist temple set among skyscrapers and malls.'},
+ {id:'xjh',en:'Xujiahui (your neighbourhood)',zh:'徐家汇',cat:['Shopping','Sights'],area:'Xuhui · around your hotel',metro:'Line 1 / 9 / 11 · Xujiahui',c:'#4f6b8a',ic:'shop',d:'Big malls around the hotel, plus St Ignatius Cathedral nearby.'},
+ {id:'zjj',en:'Zhujiajiao Water Town',zh:'朱家角',cat:['Day trips'],area:'Qingpu',metro:'Line 17 · Zhujiajiao',c:'#3f7f7a',ic:'mount',d:'Canal town with stone bridges and boat rides, about an hour by metro.'},
+ {id:'dis',en:'Shanghai Disneyland',zh:'上海迪士尼乐园',cat:['Day trips'],area:'Pudong',metro:'Line 11 · Disney Resort',c:'#5a4ea3',ic:'star',d:'Full-day theme park. Not booked: buy tickets ahead if you go.'},
+ {id:'h_yer',en:'Yershari (Xinjiang)',zh:'耶里夏丽 · 新疆菜',cat:['Food'],area:'Shimao Plaza, 819 Nanjing Rd East',metro:'Line 1 / 2 / 8 · People\'s Square',c:'#1f8a5b',ic:'food',halal:true,d:'Well-known Xinjiang group with a naan oven: big plate chicken, samsa, roast lamb. Guides say halal kitchen, but alcohol is served.'},
+ {id:'h_phw',en:'Pinhuiwei (Northwestern)',zh:'品回味清真西北菜',cat:['Food'],area:'Lane 324 Nanjing Rd East, near the Bund',metro:'Line 2 / 10 · East Nanjing Rd',c:'#1f8a5b',ic:'food',halal:true,d:'Home-style halal Northwestern food: hand-grabbed lamb and fresh naan. Hours approx 10:30–22:00.'},
+ {id:'h_hcx',en:'Hong Chang Xing (lamb hotpot)',zh:'洪长兴',cat:['Food'],area:'Nanjing Rd East pedestrian street branch',metro:'Line 2 / 10 · East Nanjing Rd',c:'#1f8a5b',ic:'food',halal:true,d:'Long-running halal brand known for Hui-style lamb hotpot.'},
+ {id:'h_xibo',en:'Xibo (Xibe cuisine)',zh:'锡伯',cat:['Food'],area:'3F, 83 Changshu Rd, Jing\'an',metro:'Line 1 / 7 · Changshu Rd',c:'#1f8a5b',ic:'food',halal:true,d:'Xibe dishes like stuffed peppers in tomato. Guides say halal kitchen, but alcohol is served.'},
+ {id:'h_bro',en:'Brothers Kebab · Changle Rd',zh:'Brothers Kebab 长乐路店',cat:['Food'],area:'674 Changle Rd, Jing\'an',metro:'Line 1 / 7 · Changshu Rd',c:'#1f8a5b',ic:'food',halal:true,d:'Turkish doner wraps; a guide says it uses certified halal meat.'},
+ {id:'h_xty',en:'Xiaotaoyuan Mosque area',zh:'小桃园清真寺',cat:['Food','Sights'],area:'52 Xiaotaoyuan St, near Yu Garden',metro:'Line 8 / 10 · Laoximen',c:'#1f8a5b',ic:'food',halal:true,d:'Historic mosque in the Old City; small halal eateries in the surrounding streets.'},
+ {id:'h_huxi',en:'Huxi Mosque Friday market',zh:'沪西清真寺',cat:['Food','Sights'],area:'Lane 1328 Changde Rd, Putuo',metro:'Line 7 / 13 · Changshou Rd',c:'#1f8a5b',ic:'food',halal:true,d:'Friday street-food market outside the mosque (approx 10:00–16:00). Your trip\'s Friday is 4 Dec.'}
+];
+var PHRASES=[
+ ['Hello','你好','nǐ hǎo'],['Thank you','谢谢','xièxie'],['Please take me to this address','请带我去这个地址','qǐng dài wǒ qù zhège dìzhǐ'],
+ ['How much is it?','多少钱？','duōshao qián?'],['Is this halal?','这是清真的吗？','zhè shì qīngzhēn de ma?'],['No pork, please','请不要放猪肉','qǐng bú yào fàng zhūròu'],
+ ['No alcohol, please','不要酒','bú yào jiǔ'],['Not spicy, please','不要辣','bú yào là'],['Where is the toilet?','洗手间在哪里？','xǐshǒujiān zài nǎlǐ?'],
+ ['Can I pay with Alipay?','可以用支付宝吗？','kěyǐ yòng Zhīfùbǎo ma?'],['The bill, please','买单','mǎidān'],['I don\'t understand','我听不懂','wǒ tīng bu dǒng'],
+ ['Too expensive','太贵了','tài guì le'],['Water','水','shuǐ'],['Help!','救命！','jiùmìng!']
+];
+function seed(){
+ var days={};TRIP_DAYS.forEach(function(k){days[k]=[]});
+ days['2026-11-28']=[
+  {id:uid(),time:'09:20',title:'Fly SQ830 to Shanghai',place:'Singapore Changi, Terminal 3',note:'Arrives 14:35 at Pudong T2',src:'booking'},
+  {id:uid(),time:'14:35',title:'Land at Shanghai Pudong',place:'Pudong Airport (PVG), Terminal 2',note:'Transfer to hotel: not booked yet',src:'booking'},
+  {id:uid(),time:'15:00',title:'Check in at Andaz Shanghai ITC',place:'283 Hongqiao Rd, Xuhui',note:'Check-in from 15:00. Deposit CNY 1,000 per day.',src:'booking'}];
+ days['2026-12-06']=[
+  {id:uid(),time:'12:00',title:'Check out of Andaz',place:'283 Hongqiao Rd, Xuhui',note:'Check out before 12:00',src:'booking'},
+  {id:uid(),time:'16:25',title:'Fly SQ833 home',place:'Pudong Airport (PVG), Terminal 2',note:'Arrives Singapore 22:15',src:'booking'}];
+ return {v:1,name:'Fee',appearance:{},refs:{sq:'',trip:'',hotel:''},transfer:'none',days:days,
+  weather:{temp:'',cond:'',note:''},rate:5.4,dailyCny:'',
+  apps:[['Alipay','Link your card before you fly'],['WeChat (Weixin)','Messaging + WeChat Pay'],['Didi','Taxis (also inside Alipay)'],['Amap (Gaode)','Maps that work best in China'],['VPN or travel eSIM','For Google, WhatsApp, Instagram'],['Trip.com','Your hotel booking lives here']].map(function(a){return {id:uid(),t:a[0],s:a[1],done:false}}),
+  packing:['Warm jacket or coat','Light layers / sweater','Comfortable walking shoes','Umbrella or light rain jacket','Universal power adapter','Power bank (in hand luggage)','Passport (6+ months validity)','Printed hotel address','Toiletries (Shanghai hotels skip disposables)','Prayer mat & qibla app','Some cash in CNY','Lip balm & moisturiser'].map(function(t){return {id:uid(),t:t,done:false}}),
+  docs:[{id:uid(),t:'China arrival card filled online',s:'Receipt emailed 14 Sep by the immigration form site',done:true},{id:uid(),t:'Check China entry rules for Singapore passports',s:'Confirm on the official site before you fly',done:false}]
+ };
+}
+var S;
+function load(){try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}
+ if(!S||!S.days){var ap=S&&S.appearance;S=seed();if(ap)S.appearance=ap;save()}
+ var d=seed();['refs','weather','apps','packing','docs'].forEach(function(k){if(!S[k])S[k]=d[k]});
+ TRIP_DAYS.forEach(function(k){if(!S.days[k])S.days[k]=[]});if(!S.appearance)S.appearance={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('Could not save')}}
+window.__shTheme.live=function(){return S&&S.appearance||{}};
+
+var view={tab:'home',day:null,cat:'All',q:'',ess:'taxi',reveal:{}};
+var app=document.getElementById('app'),nav=document.getElementById('nav');
+function toast(m){var t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove()},1800)}
+function copy(txt){if(!txt){toast('Nothing to copy yet');return}
+ var fb=function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Copied')}catch(e){toast('Copy failed')}ta.remove()};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(function(){toast('Copied')},fb);else fb()}
+var TABS=[['home','Home','home'],['bookings','Bookings','plane'],['plan','Plan','cal'],['explore','Explore','compass'],['ess','Essentials','bag']];
+function renderNav(){nav.innerHTML=TABS.map(function(t){return '<button data-tab="'+t[0]+'" class="'+(view.tab===t[0]?'on':'')+'" aria-label="'+t[1]+'">'+I(t[2])+'<span>'+t[1]+'</span></button>'}).join('')}
+function header(sub){return '<div class="top"><div class="av">'+esc((S.name||'F').charAt(0).toUpperCase())+'<small>SH</small></div><div class="hi"><b>Hello, '+esc(S.name||'Fee')+'</b><span>'+esc(sub)+'</span></div><button class="round" data-go="settings" aria-label="Settings">'+I('sliders')+'</button></div>'}
+function tripState(){var n=Date.now();if(n<DEPART)return 'before';if(n<=RETURN_ARR)return 'during';return 'after'}
+function pad(n){return (n<10?'0':'')+n}
+function acts(k){return (S.days[k]||[]).slice().sort(function(a,b){return (a.time||'99').localeCompare(b.time||'99')})}
+function actRow(a,k,ops){return '<div class="act"><div class="tm">'+esc(a.time||'—')+(a.src==='booking'?'<small>booked</small>':'')+'</div><div class="bd"><b>'+esc(a.title)+'</b>'+(a.place?'<div class="tiny">'+esc(a.place)+'</div>':'')+(a.note?'<div class="tiny">'+esc(a.note)+'</div>':'')+'</div>'+(ops?'<div class="ops"><button data-edit="'+a.id+'" data-day="'+k+'" aria-label="Edit">'+I('edit')+'</button><button data-del="'+a.id+'" data-day="'+k+'" aria-label="Delete">'+I('trash')+'</button></div>':'')+'</div>'}
+
+function vHome(){
+ var st=tripState(),h='';
+ h+=header(st==='during'?'Enjoy Shanghai today':'Let\'s get ready for Shanghai');
+ h+='<div class="hero"><div class="art">'+skyline('h','hero')+'</div><div class="h1">Discover<br><span class="hl">Shanghai</span></div>';
+ h+='<div class="chips"><button class="chip on" data-go="bookings" data-anchor="flights"><span class="ic">'+I('plane')+'</span>Flights</button><button class="chip" data-go="bookings" data-anchor="hotel"><span class="ic">'+I('bed')+'</span>Hotel</button><button class="chip" data-go="bookings" data-anchor="transfer"><span class="ic">'+I('car')+'</span>Transfer</button><button class="chip" data-go="explore"><span class="ic">'+I('compass')+'</span>Explore</button></div></div>';
+ h+='<div class="sec"><h2>'+(st==='before'?'Countdown':st==='during'?'On the trip':'Trip done')+'</h2><span class="cd" id="cdmini"></span></div>';
+ h+='<div class="card"><div class="row"><div class="sp"><h3>Singapore → Shanghai</h3><div class="tiny">Sat 28 Nov – Sun 6 Dec 2026 · 9 days, 8 nights</div></div><span class="pill acc">SQ830</span></div><div class="cdbig" id="cdbig"></div></div>';
+ h+='<div class="sec"><h2>Your stay</h2><button class="lnk" data-go="bookings" data-anchor="hotel">See details</button></div>';
+ h+='<div class="card feat"><div class="ph">'+skyline('f','card')+'<span class="badge">'+I('pin')+'Xuhui</span><button class="badge r" data-go="ess" data-ess="taxi">'+I('car')+'Taxi card</button></div><div class="bot"><span class="ic">'+I('bed')+'</span><div class="sp"><b>Andaz Shanghai ITC</b><div class="tiny zh">上海徐家汇中心安达仕酒店</div></div><div style="text-align:right"><div class="price">8</div><div class="tiny">nights</div></div></div></div>';
+ var tk=todayKey(),inTrip=TRIP_DAYS.indexOf(tk)>=0,k=inTrip?tk:TRIP_DAYS[0],list=acts(k);
+ h+='<div class="sec"><h2>'+(inTrip?'Today\'s plan':'Day 1 plan')+'</h2><button class="lnk" data-go="plan" data-day="'+k+'">Open itinerary</button></div>';
+ h+=list.length?list.map(function(a){return actRow(a,k,false)}).join(''):'<div class="empty">Nothing planned yet.</div>';
+ var w=S.weather||{};
+ h+='<div class="sec"><h2>Weather</h2><button class="lnk" data-act="wx">Edit</button></div>';
+ h+='<div class="card"><div class="wx"><div class="ic">'+I('sun')+'</div><div class="sp">'+(w.temp||w.cond?'<b>'+esc(w.temp||'')+'</b> <span class="t2">'+esc(w.cond||'')+'</span>':'<b style="font-size:17px">Add a forecast</b>')+'<div class="tiny">'+esc(w.note||'Check a weather app nearer the date and jot it here. This app doesn\'t fetch live weather.')+'</div></div></div><div class="note">Typical late Nov to early Dec in Shanghai: cool, roughly 7–16°C, sometimes damp. That\'s a seasonal norm, not a forecast.</div></div>';
+ return h;
+}
+function cdTick(){
+ var a=document.getElementById('cdbig'),b=document.getElementById('cdmini');if(!a)return;
+ var st=tripState(),n=Date.now();
+ if(st==='before'){var s=Math.floor((DEPART-n)/1000),d=Math.floor(s/86400),hh=Math.floor(s%86400/3600),mm=Math.floor(s%3600/60),ss=s%60;
+  a.innerHTML='<div><b>'+d+'</b><small>days</small></div><div><b>'+pad(hh)+'</b><small>hrs</small></div><div><b>'+pad(mm)+'</b><small>min</small></div><div><b>'+pad(ss)+'</b><small>sec</small></div>';
+  b.innerHTML='<span>'+pad(d)+'</span><span>'+pad(hh)+'</span><span>'+pad(mm)+'</span>';}
+ else if(st==='during'){var di=TRIP_DAYS.indexOf(todayKey())+1;a.innerHTML='<div><b>Day '+(di||'–')+'</b><small>of 9</small></div>';b.innerHTML=''}
+ else{a.innerHTML='<div><b>Welcome home</b><small>hope it was amazing</small></div>';b.innerHTML=''}
+}
+function refRow(key,label){var v=S.refs[key]||'',show=view.reveal[key];
+ return '<div class="ref"><label>'+label+'</label><input data-ref="'+key+'" type="'+(show?'text':'password')+'" autocomplete="off" placeholder="Add (saved on this phone)" value="'+esc(v)+'"><button data-reveal="'+key+'" aria-label="Show or hide">'+I('eye')+'</button><button data-copyref="'+key+'" aria-label="Copy">'+I('copy')+'</button></div>'}
+function flightCard(o){
+ return '<div class="card flight"><div class="fl-top"><span class="pill acc">'+o.tag+'</span><span class="tiny">'+o.date+'</span></div>'+
+ '<div class="fl-mid"><div class="ap"><b>'+o.from+'</b><span>'+o.fromCity+'</span></div><div class="fl-line"><i></i><span class="pl">'+I('plane')+'</span><i></i></div><div class="ap r"><b>'+o.to+'</b><span>'+o.toCity+'</span></div></div>'+
+ '<div class="fl-times"><div><span class="tiny">Depart</span><b>'+o.dep+'</b><span class="tiny">'+o.fromT+'</span></div><div style="text-align:right"><span class="tiny">Arrive</span><b>'+o.arr+'</b><span class="tiny">'+o.toT+'</span></div></div>'+
+ '<div class="perf"></div><div class="kv"><span>Flight</span><b>'+o.no+' · Airbus A380-800</b></div><div class="kv"><span>Cabin</span><b>Economy Standard · 30kg bag</b></div></div>'}
+function vBookings(){
+ var h=header('Everything you\'ve booked');
+ h+='<div class="ttl">Booking Details</div><div class="tiny" style="margin:0 2px 8px">From your Singapore Airlines and Trip.com confirmation emails.</div>';
+ h+='<div id="flights" class="sec"><h2>Flights</h2><span class="tiny">Singapore Airlines</span></div>';
+ h+=flightCard({tag:'Outbound',date:'Sat, 28 Nov 2026',from:'SIN',fromCity:'Singapore',to:'PVG',toCity:'Shanghai Pudong',dep:'09:20',arr:'14:35',fromT:'Changi T3',toT:'Pudong T2',no:'SQ830'});
+ h+=flightCard({tag:'Return',date:'Sun, 6 Dec 2026',from:'PVG',fromCity:'Shanghai Pudong',to:'SIN',toCity:'Singapore',dep:'16:25',arr:'22:15',fromT:'Pudong T2',toT:'Changi',no:'SQ833'});
+ h+='<div class="card"><h3>Booking refs</h3><div class="tiny">Type them in once. They stay on this phone only and are hidden until you tap the eye.</div>'+refRow('sq','SQ booking')+refRow('trip','Trip.com no.')+refRow('hotel','Hotel conf.')+'</div>';
+ h+='<div id="hotel" class="sec"><h2>Hotel</h2><span class="tiny">via Trip.com</span></div>';
+ h+='<div class="card feat"><div class="ph" style="height:150px">'+skyline('b','card')+'<span class="badge">'+I('star')+'Andaz · Hyatt</span></div><div class="bot"><span class="ic">'+I('bed')+'</span><div class="sp"><b>Andaz Shanghai ITC</b><div class="tiny">283 Hongqiao Rd, Xuhui District</div></div></div></div>';
+ h+='<div class="card"><h3>Booking Details</h3>'+
+  '<div class="bk">'+I('cal')+'<span>Check-in</span><span class="v">28 Nov 2026<br>after 15:00</span></div>'+
+  '<div class="bk">'+I('cal')+'<span>Check-out</span><span class="v">6 Dec 2026<br>before 12:00</span></div>'+
+  '<div class="bk">'+I('bed')+'<span>Room</span><span class="v">1 room · 8 nights<br>King bed room, up to 2 adults</span></div>'+
+  '<div class="bk">'+I('food')+'<span>Meals</span><span class="v">Not included<br>Buffet CNY 268 / adult</span></div>'+
+  '<div class="note">Booked under your travel companion\'s name, so check in with the guest name and ID on the booking. Non-refundable and can\'t be changed.</div></div>';
+ h+='<div class="card"><h3>Price Details</h3><div class="kv"><span>Room × 8 nights (prepaid)</span><b>S$3,115.61</b></div><div class="kv"><span>Service charge</span><b>Included</b></div><div class="kv"><span>VAT</span><b>Included</b></div><div class="kv"><span>Deposit at check-in</span><b>CNY 1,000 / day</b></div><div class="tiny">The deposit is refundable; card refunds can take 2–4 weeks.</div>'+
+  '<button class="btn" data-go="ess" data-ess="taxi">'+I('car')+'Show taxi driver the address</button></div>';
+ h+='<div class="card"><h3>What the hotel told you</h3>'+
+  '<div class="kv"><span>Room upgrade</span><b>Noted, subject to availability</b></div>'+
+  '<div class="kv"><span>TV casting</span><b>No full mirroring</b></div><div class="tiny">Only some streaming apps have built-in cast. Chromecast may work but isn\'t guaranteed.</div>'+
+  '<div class="kv"><span>Toilet</span><b>Bidet spray, no bidet seat</b></div>'+
+  '<div class="kv"><span>Taobao parcels</span><b>Yes, held at concierge</b></div><div class="tiny">Mark each parcel with the reservation name, confirmation number and check-in date. They\'re kept in the concierge office on the 1st floor.</div>'+
+  '<div class="kv"><span>Concierge WeChat</span><b>Andaz Shanghai ITC Concierge</b></div><div class="tiny">The search ID is in your private notes. Hotel line: +86 21 5330 1234.</div></div>';
+ var tr=S.transfer||'none';
+ h+='<div id="transfer" class="sec"><h2>Airport transfer</h2><span class="pill '+(tr==='confirmed'?'acc':'warn')+'">'+(tr==='confirmed'?'Confirmed':tr==='requested'?'Requested':'Not booked')+'</span></div>';
+ h+='<div class="card"><div class="tiny">Pudong → hotel, one way, as quoted by the hotel concierge.</div>'+
+  '<div class="opt">'+I('car')+'<div><b>Mercedes E-class</b><div class="tiny">2–3 guests · 2–3 regular suitcases</div></div><span class="v">CNY 850</span></div>'+
+  '<div class="opt">'+I('car')+'<div><b>Mercedes Viano</b><div class="tiny">Up to 5 guests</div></div><span class="v">CNY 1,100</span></div>'+
+  '<div class="opt">'+I('car')+'<div><b>Taxi from the rank</b><div class="tiny">Follow the signs in arrivals</div></div><span class="v">≈ CNY 260</span></div>'+
+  '<div class="note">Book with the hotel at least 1 day ahead; the fee goes on your room bill. You told them 2 adults with 2 large and 2 medium suitcases, which may be a squeeze in the E-class.</div>'+
+  '<div class="seg" style="margin-top:12px">'+[['none','Not booked'],['requested','Requested'],['confirmed','Confirmed']].map(function(x){return '<button data-transfer="'+x[0]+'" class="'+(tr===x[0]?'on':'')+'">'+x[1]+'</button>'}).join('')+'</div></div>';
+ return h;
+}
+function vPlan(){
+ if(!view.day){var tk=todayKey();view.day=TRIP_DAYS.indexOf(tk)>=0?tk:TRIP_DAYS[0]}
+ var k=view.day,h=header('Your day-by-day plan');
+ h+='<div class="ttl">Itinerary</div><div class="tiny" style="margin:0 2px 10px">28 Nov – 6 Dec 2026. Pick a day, then add what you want to do.</div>';
+ h+='<div class="days">'+TRIP_DAYS.map(function(d){var o=dObj(d);return '<button class="day'+(d===k?' on':'')+((S.days[d]||[]).length?' has':'')+'" data-day="'+d+'"><small>'+WD[o.getUTCDay()]+'</small><b>'+o.getUTCDate()+'</b><small>'+MON[o.getUTCMonth()]+'</small><i></i></button>'}).join('')+'</div>';
+ var i=TRIP_DAYS.indexOf(k)+1,list=acts(k);
+ h+='<div class="sec"><h2>Day '+i+' · '+dLabel(k,true)+'</h2><span class="tiny">'+list.length+' item'+(list.length===1?'':'s')+'</span></div>';
+ h+=list.length?list.map(function(a){return actRow(a,k,true)}).join(''):'<div class="empty">Free day. Add something, or pick ideas from Explore.</div>';
+ h+='<button class="btn dark" data-act="add" data-day="'+k+'"><span class="ic">'+I('plus')+'</span><span>Add activity</span><span style="width:44px"></span></button>';
+ h+='<button class="btn ghost sm" data-go="explore">'+I('compass')+'Browse ideas in Explore</button>';
+ return h;
+}
+function vExplore(){
+ var h=header('Ideas for your 9 days');
+ h+='<div class="ttl">Explore Shanghai</div><div class="tiny" style="margin:0 2px 4px">Suggestions only. Nothing here is booked.</div>';
+ h+='<div class="search">'+I('compass')+'<input id="q" placeholder="Search places" value="'+esc(view.q)+'"><span class="round">'+I('pin')+'</span></div>';
+ var cats=[['All','compass'],['Sights','sight'],['Food','food'],['Shopping','shop'],['Day trips','mount']];
+ h+='<div class="chips" style="margin-bottom:8px">'+cats.map(function(c){return '<button class="chip'+(view.cat===c[0]?' on':'')+'" data-cat="'+c[0]+'"><span class="ic">'+I(c[1])+'</span>'+c[0]+'</button>'}).join('')+'</div>';
+ var q=view.q.trim().toLowerCase();
+ var list=SPOTS.filter(function(s){return (view.cat==='All'||s.cat.indexOf(view.cat)>=0)&&(!q||(s.en+' '+s.zh+' '+s.area+' '+s.d).toLowerCase().indexOf(q)>=0)});
+ if(view.cat==='Food')list.sort(function(a,b){return (b.halal?1:0)-(a.halal?1:0)});
+ if(view.cat==='Food')h+='<div class="note" style="margin:0 0 12px">Halal picks come from Shanghai halal food guides online (checked Oct 2026). Look for the green <span class="zh">清真</span> sign and ask whether alcohol is served.</div>';
+ h+=list.length?list.map(function(s){return '<div class="card"><div class="spot"><div class="th" style="background:'+s.c+'">'+I(s.ic)+'</div><div class="sp"><h4>'+esc(s.en)+'</h4><div class="zh t2" style="font-size:15px">'+esc(s.zh)+'</div><div class="tiny">'+esc(s.area)+'</div></div></div><div class="small t2" style="margin-top:10px">'+esc(s.d)+'</div><div class="meta"><span class="pill">'+I('metro')+esc(s.metro)+'</span>'+(s.halal?'<span class="pill acc">Halal · worth checking</span>':'')+s.cat.map(function(c){return '<span class="pill">'+c+'</span>'}).join('')+'</div><div class="row" style="margin-top:12px"><button class="pill" data-copyzh="'+s.id+'">'+I('copy')+'Copy Chinese</button><button class="addday" data-addspot="'+s.id+'">'+I('plus')+'Add to day</button></div></div>'}).join(''):'<div class="empty">No places match.</div>';
+ return h;
+}
+function chkList(arr,key){return arr.map(function(it){return '<div class="chk'+(it.done?' done':'')+'"><button class="bx" data-tog="'+key+'" data-id="'+it.id+'" aria-label="Toggle">'+(it.done?I('check'):'')+'</button><div class="lb">'+esc(it.t)+(it.s?'<small>'+esc(it.s)+'</small>':'')+'</div><button class="x" data-rm="'+key+'" data-id="'+it.id+'" aria-label="Remove">'+I('x')+'</button></div>'}).join('')+'<div class="addline"><input id="add_'+key+'" placeholder="Add an item"><button data-additem="'+key+'" aria-label="Add">'+I('plus')+'</button></div>'}
+function dailyOut(){var d=+S.dailyCny,r=+S.rate;if(!d)return 'Set a daily amount to see the trip total.';return '9 days × CNY '+d.toLocaleString()+' = CNY '+(d*9).toLocaleString()+(r?' ≈ S$'+Math.round(d*9/r).toLocaleString():'')}
+function vEss(){
+ var h=header('Handy when you land');
+ h+='<div class="ttl">Essentials</div>';
+ var subs=[['taxi','Taxi card'],['phrases','Phrases'],['apps','Apps'],['packing','Packing'],['sos','Emergency'],['money','Money']];
+ h+='<div class="subnav">'+subs.map(function(s){return '<button class="chip sm'+(view.ess===s[0]?' on':'')+'" data-ess="'+s[0]+'">'+s[1]+'</button>'}).join('')+'</div>';
+ h+='<div id="e_taxi" class="sec"><h2>Show taxi driver</h2></div><div class="taxi"><div class="tiny">请带我去这里 · Please take me here</div><div class="big zh">上海徐家汇中心安达仕酒店</div><div class="zh" style="font-size:22px;font-weight:600">上海市徐汇区虹桥路283号</div><div class="tiny" style="margin-top:8px">Andaz Shanghai ITC, No. 283 Hongqiao Road, Xuhui District</div><button class="btn" data-act="full">'+I('eye')+'Show full screen</button><button class="btn ghost sm" data-copytxt="上海市徐汇区虹桥路283号 上海徐家汇中心安达仕酒店">'+I('copy')+'Copy for Didi / Amap</button></div>';
+ h+='<div id="e_phrases" class="sec"><h2>Useful phrases</h2><span class="tiny">Tap the eye to show big</span></div><div class="card" style="padding:6px 18px">'+PHRASES.map(function(p,i){return '<div class="ph-row"><div class="en">'+esc(p[0])+'</div><div class="zh">'+esc(p[1])+'</div><div class="py">'+esc(p[2])+'</div><button data-phrase="'+i+'" aria-label="Show big">'+I('eye')+'</button></div>'}).join('')+'</div>';
+ h+='<div id="e_apps" class="sec"><h2>Apps to set up</h2><span class="tiny">'+S.apps.filter(function(a){return a.done}).length+'/'+S.apps.length+' done</span></div><div class="card" style="padding:6px 18px">'+chkList(S.apps,'apps')+'</div>';
+ h+='<div class="sec"><h2>Documents</h2></div><div class="card" style="padding:6px 18px">'+chkList(S.docs,'docs')+'</div>';
+ h+='<div id="e_packing" class="sec"><h2>Packing list</h2><span class="tiny">'+S.packing.filter(function(a){return a.done}).length+'/'+S.packing.length+' packed</span></div><div class="card" style="padding:6px 18px">'+chkList(S.packing,'packing')+'</div>';
+ h+='<div id="e_sos" class="sec"><h2>Emergency numbers</h2><span class="tiny">China</span></div><div class="card"><div class="sos"><a href="tel:110"><b>110</b><small>Police</small></a><a href="tel:120"><b>120</b><small>Ambulance</small></a><a href="tel:119"><b>119</b><small>Fire</small></a></div><div class="note">Hotel front desk: <a class="lk" href="tel:+862153301234">+86 21 5330 1234</a>. For passport trouble, contact the Singapore Consulate-General in Shanghai (details on mfa.gov.sg).</div></div>';
+ var r=+S.rate||0;
+ h+='<div id="e_money" class="sec"><h2>Money</h2><span class="tiny">SGD ⇄ CNY</span></div><div class="card"><div class="fld"><label>Rate: 1 SGD = ? CNY <span class="pill warn" style="margin-left:4px">Estimate</span></label><input id="rate" type="number" step="0.01" inputmode="decimal" value="'+esc(S.rate)+'"></div><div class="tiny" style="margin:-6px 4px 12px">A starting guess you can change. Use your bank or card app\'s rate before you go.</div>'+
+  '<div class="conv"><div class="fld"><label>SGD</label><input id="c_sgd" type="number" inputmode="decimal" placeholder="0"></div><span class="mut" style="padding-top:18px">⇄</span><div class="fld"><label>CNY</label><input id="c_cny" type="number" inputmode="decimal" placeholder="0"></div></div><hr class="s">'+
+  '<div class="kv"><span>Flights (paid)</span><b>S$1,378.20</b></div><div class="kv"><span>Hotel, 8 nights (prepaid)</span><b>S$3,115.61</b></div><div class="kv"><span>Hotel deposit, held per day</span><b>CNY 1,000 ≈ S$'+(r?(1000/r).toFixed(0):'–')+'</b></div><div class="kv"><span>Airport transfer, if booked</span><b>CNY 850–1,100 ≈ S$'+(r?(850/r).toFixed(0)+'–'+(1100/r).toFixed(0):'–')+'</b></div>'+
+  '<div class="fld" style="margin-top:10px"><label>Your daily spending budget (CNY)</label><input id="daily" type="number" inputmode="decimal" placeholder="e.g. 500" value="'+esc(S.dailyCny)+'"></div><div class="tiny" id="dailyOut">'+dailyOut()+'</div></div>';
+ return h;
+}
+function vSettings(){
+ var ap=S.appearance||{},th=ap.theme||'auto',ac=(ap.accent||'#D4F53C').toUpperCase(),preset=false;
+ var h='<div class="top"><button class="round" data-go="home" aria-label="Back" style="transform:scaleX(-1)">'+I('arrow')+'</button><div class="hi"><b>Settings</b><span>Look, backup and reset</span></div></div>';
+ h+='<div class="card"><h3>Appearance</h3><div class="tiny" style="margin-bottom:10px">Theme</div><div class="seg">'+[['light','☀️ Light'],['dark','🌙 Dark'],['auto','📱 Auto']].map(function(x){return '<button data-theme="'+x[0]+'" class="'+(th===x[0]?'on':'')+'">'+x[1]+'</button>'}).join('')+'</div><div class="tiny">Auto follows your phone\'s light/dark setting.</div>';
+ h+='<div class="tiny" style="margin-top:14px">Accent colour</div><div class="swatches">'+ACCENTS.map(function(a){var on=a[1].toUpperCase()===ac;if(on)preset=true;return '<button class="sw'+(on?' on':'')+'" data-accent="'+a[1]+'" title="'+a[0]+'" aria-label="'+a[0]+'" style="background:'+a[1]+'"></button>'}).join('')+'<label class="swc'+(preset?'':' on')+'" title="Custom colour" aria-label="Custom colour"><input type="color" id="accCustom" value="'+ac.toLowerCase()+'"></label></div><div class="tiny">'+(preset?ACCENTS.filter(function(a){return a[1].toUpperCase()===ac})[0][0]:'Custom '+esc(ac))+'</div></div>';
+ h+='<div class="card"><h3>Your name</h3><div class="fld" style="margin:8px 0 0"><input id="nm" value="'+esc(S.name||'')+'" placeholder="Fee"></div></div>';
+ h+='<div class="card"><h3>Backup</h3><div class="tiny">Everything is stored only on this phone. Export a backup before clearing your browser.</div><button class="btn" data-act="export">Export JSON backup</button><label class="btn ghost" style="cursor:pointer">Import backup<input type="file" id="imp" accept="application/json,.json" hidden></label><button class="btn ghost sm" data-act="reset" style="color:var(--red)">Reset trip data</button></div>';
+ h+='<div class="tiny" style="text-align:center;margin-top:8px">Fee\'s Shanghai trip · works offline once opened</div>';
+ return h;
+}
+function render(){
+ var f={home:vHome,bookings:vBookings,plan:vPlan,explore:vExplore,ess:vEss,settings:vSettings}[view.tab]||vHome;
+ app.innerHTML=f();renderNav();nav.style.display=view.tab==='settings'?'none':'';cdTick();
+}
+setInterval(cdTick,1000);
+function sheet(html){closeSheet();var bg=document.createElement('div');bg.className='sheet-bg';bg.id='sheet';bg.innerHTML='<div class="sheet"><div class="grab"></div>'+html+'</div>';bg.addEventListener('click',function(e){if(e.target===bg)closeSheet()});document.body.appendChild(bg);return bg}
+function closeSheet(){var s=document.getElementById('sheet');if(s)s.remove()}
+function actForm(k,a,pre){a=a||{};pre=pre||{};
+ var bg=sheet('<h3>'+(a.id?'Edit activity':'New activity')+'</h3><div class="fld"><label>Day</label><select id="f_day">'+TRIP_DAYS.map(function(d,i){return '<option value="'+d+'"'+(d===k?' selected':'')+'>Day '+(i+1)+' · '+dLabel(d,true)+'</option>'}).join('')+'</select></div><div class="two"><div class="fld"><label>Time</label><input id="f_time" type="time" value="'+esc(a.time||pre.time||'')+'"></div><div class="fld"><label>Place</label><input id="f_place" value="'+esc(a.place||pre.place||'')+'" placeholder="Where"></div></div><div class="fld"><label>What</label><input id="f_title" value="'+esc(a.title||pre.title||'')+'" placeholder="e.g. Walk the Bund"></div><div class="fld"><label>Note</label><textarea id="f_note" placeholder="Tickets, tips, who you\'re meeting">'+esc(a.note||pre.note||'')+'</textarea></div><button class="btn" id="f_save">Save</button><button class="btn ghost sm" id="f_cancel">Cancel</button>');
+ bg.querySelector('#f_cancel').onclick=closeSheet;
+ bg.querySelector('#f_save').onclick=function(){var t=bg.querySelector('#f_title').value.trim();if(!t){toast('Add what you\'re doing');return}
+  var nd=bg.querySelector('#f_day').value,o={id:a.id||uid(),time:bg.querySelector('#f_time').value,title:t,place:bg.querySelector('#f_place').value.trim(),note:bg.querySelector('#f_note').value.trim()};if(a.src)o.src=a.src;
+  if(a.id){TRIP_DAYS.forEach(function(d){S.days[d]=S.days[d].filter(function(x){return x.id!==a.id})})}
+  S.days[nd].push(o);save();closeSheet();if(view.tab==='plan')view.day=nd;render();toast(a.id?'Updated':'Added to '+dLabel(nd))};
+}
+function findAct(k,id){return (S.days[k]||[]).filter(function(x){return x.id===id})[0]}
+function wxForm(){var w=S.weather||{};var bg=sheet('<h3>Weather note</h3><div class="two"><div class="fld"><label>Temperature</label><input id="w_t" value="'+esc(w.temp)+'" placeholder="e.g. 9–15°C"></div><div class="fld"><label>Conditions</label><input id="w_c" value="'+esc(w.cond)+'" placeholder="e.g. Cloudy"></div></div><div class="fld"><label>Note</label><input id="w_n" value="'+esc(w.note)+'" placeholder="e.g. Rain on Tuesday"></div><button class="btn" id="w_s">Save</button><button class="btn ghost sm" id="w_x">Clear</button>');
+ bg.querySelector('#w_s').onclick=function(){S.weather={temp:bg.querySelector('#w_t').value.trim(),cond:bg.querySelector('#w_c').value.trim(),note:bg.querySelector('#w_n').value.trim()};save();closeSheet();render()};
+ bg.querySelector('#w_x').onclick=function(){S.weather={temp:'',cond:'',note:''};save();closeSheet();render()}}
+function full(z1,z2,en){var d=document.createElement('div');d.className='full';d.innerHTML='<div class="z1 zh">'+esc(z1)+'</div>'+(z2?'<div class="z2 zh">'+esc(z2)+'</div>':'')+'<div class="en">'+esc(en)+'</div><button>Close</button>';d.onclick=function(){d.remove()};document.body.appendChild(d)}
+function keepY(fn){var y=scrollY;fn();render();scrollTo(0,y)}
+
+document.addEventListener('click',function(e){
+ var t=e.target.closest('button,[data-go]');if(!t||t.closest('#sheet .sheet [data-pick]'))return;var ds=t.dataset;
+ if(ds.tab){view.tab=ds.tab;render();scrollTo(0,0);return}
+ if(ds.go){view.tab=ds.go;if(ds.day)view.day=ds.day;if(ds.ess)view.ess=ds.ess;render();var an=ds.anchor||(ds.ess?'e_'+ds.ess:null),el=an&&document.getElementById(an);if(el)scrollTo(0,el.getBoundingClientRect().top+scrollY-(ds.ess?56:8));else scrollTo(0,0);return}
+ if(ds.ess&&view.tab==='ess'){view.ess=ds.ess;document.querySelectorAll('.subnav .chip').forEach(function(c){c.classList.toggle('on',c.dataset.ess===ds.ess)});var el2=document.getElementById('e_'+ds.ess);if(el2)scrollTo({top:el2.getBoundingClientRect().top+scrollY-56,behavior:'smooth'});return}
+ if(ds.day&&t.classList.contains('day')){view.day=ds.day;render();return}
+ if(ds.act==='add'){actForm(ds.day);return}
+ if(ds.edit){var a=findAct(ds.day,ds.edit);if(a)actForm(ds.day,a);return}
+ if(ds.del){var a2=findAct(ds.day,ds.del);if(a2&&confirm('Delete "'+a2.title+'"?')){keepY(function(){S.days[ds.day]=S.days[ds.day].filter(function(x){return x.id!==ds.del});save()});toast('Deleted')}return}
+ if(ds.cat){view.cat=ds.cat;render();return}
+ if(ds.addspot){var s=SPOTS.filter(function(x){return x.id===ds.addspot})[0];
+  var bg=sheet('<h3>Add “'+esc(s.en)+'” to…</h3><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'+TRIP_DAYS.map(function(d,i){return '<button class="day" style="width:auto;background:var(--tile)" data-pick="'+d+'"><small>Day '+(i+1)+'</small><b>'+dObj(d).getUTCDate()+'</b><small>'+WD[dObj(d).getUTCDay()]+'</small></button>'}).join('')+'</div><button class="btn ghost sm" id="pk_more">Add with a time and note…</button>');
+  bg.querySelectorAll('[data-pick]').forEach(function(b){b.onclick=function(){var d=b.dataset.pick;S.days[d].push({id:uid(),time:'',title:s.en,place:s.zh.split(' · ')[0]+' · '+s.area,note:s.metro});save();closeSheet();keepY(function(){});toast('Added to '+dLabel(d))}});
+  bg.querySelector('#pk_more').onclick=function(){actForm(TRIP_DAYS[1],null,{title:s.en,place:s.zh.split(' · ')[0]+' · '+s.area,note:s.metro})};return}
+ if(ds.copyzh){var s2=SPOTS.filter(function(x){return x.id===ds.copyzh})[0];copy(s2.zh.split(' · ')[0]);return}
+ if(ds.copytxt){copy(ds.copytxt);return}
+ if(ds.reveal){view.reveal[ds.reveal]=!view.reveal[ds.reveal];var inp=document.querySelector('input[data-ref="'+ds.reveal+'"]');if(inp)inp.type=view.reveal[ds.reveal]?'text':'password';return}
+ if(ds.copyref){copy(S.refs[ds.copyref]);return}
+ if(ds.transfer){keepY(function(){S.transfer=ds.transfer;save()});return}
+ if(ds.act==='wx'){wxForm();return}
+ if(ds.act==='full'){full('上海徐家汇中心安达仕酒店','上海市徐汇区虹桥路283号','Andaz Shanghai ITC · 283 Hongqiao Road, Xuhui · 请带我去这里');return}
+ if(ds.phrase){var p=PHRASES[+ds.phrase];full(p[1],'',p[2]+' · '+p[0]);return}
+ if(ds.tog){keepY(function(){var it=S[ds.tog].filter(function(x){return x.id===ds.id})[0];if(it){it.done=!it.done;save()}});return}
+ if(ds.rm){keepY(function(){S[ds.rm]=S[ds.rm].filter(function(x){return x.id!==ds.id});save()});return}
+ if(ds.additem){var ip=document.getElementById('add_'+ds.additem),v=ip&&ip.value.trim();if(!v)return;keepY(function(){S[ds.additem].push({id:uid(),t:v,done:false});save()});var n=document.getElementById('add_'+ds.additem);if(n)n.focus({preventScroll:true});return}
+ if(ds.theme||ds.accent){if(ds.theme)S.appearance.theme=ds.theme;if(ds.accent)S.appearance.accent=ds.accent;save();window.__shTheme.apply(S.appearance);render();toast('Appearance updated');return}
+ if(ds.act==='export'){var blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),u=URL.createObjectURL(blob),l=document.createElement('a');l.href=u;l.download='Shanghai-trip-backup-'+todayKey()+'.json';document.body.appendChild(l);l.click();setTimeout(function(){URL.revokeObjectURL(u);l.remove()},1500);toast('Backup downloaded');return}
+ if(ds.act==='reset'){if(confirm('Reset all trip data on this phone? Your theme stays.')){var ap=S.appearance;S=seed();S.appearance=ap;save();render();toast('Reset')}return}
+});
+document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id&&e.target.id.indexOf('add_')===0){var b=document.querySelector('[data-additem="'+e.target.id.slice(4)+'"]');if(b)b.click()}});
+document.addEventListener('input',function(e){var t=e.target;
+ if(t.dataset.ref){S.refs[t.dataset.ref]=t.value.trim();save();return}
+ if(t.id==='q'){view.q=t.value;var pos=t.selectionStart;render();var q=document.getElementById('q');q.focus();try{q.setSelectionRange(pos,pos)}catch(_){}return}
+ if(t.id==='accCustom'){S.appearance.accent=t.value;window.__shTheme.apply(S.appearance);return}
+ if(t.id==='rate'){S.rate=parseFloat(t.value)||'';save();document.getElementById('dailyOut').textContent=dailyOut();return}
+ if(t.id==='c_sgd'){var r=+S.rate;document.getElementById('c_cny').value=t.value&&r?(t.value*r).toFixed(2):'';return}
+ if(t.id==='c_cny'){var r2=+S.rate;document.getElementById('c_sgd').value=t.value&&r2?(t.value/r2).toFixed(2):'';return}
+ if(t.id==='daily'){S.dailyCny=t.value;save();document.getElementById('dailyOut').textContent=dailyOut();return}
+ if(t.id==='nm'){S.name=t.value.trim()||'Fee';save();return}
+});
+document.addEventListener('change',function(e){var t=e.target;
+ if(t.id==='accCustom'){S.appearance.accent=t.value;save();window.__shTheme.apply(S.appearance);render();return}
+ if(t.id==='rate'){keepY(function(){});return}
+ if(t.id==='imp'){var f=t.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){try{var o=JSON.parse(rd.result);if(!o||!o.days)throw 0;S=o;save();load();window.__shTheme.apply(S.appearance);render();toast('Backup restored')}catch(_){toast('That file isn\'t a trip backup')}};rd.readAsText(f)}
+});
+load();window.__shTheme.apply(S.appearance);render();
+window.__sh={get:function(){return S},view:view};
+})();
+
+</script>
+</body>
+</html>
