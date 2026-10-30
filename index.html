@@ -68,6 +68,7 @@ html[data-theme=dark] .av{background:#2a2a2e}
 .av small{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);background:var(--acc);color:var(--acc-ink);font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px}
 .hi{flex:1;min-width:0}.hi b{display:block;font-size:19px;font-weight:600}.hi span{font-size:13px;color:var(--mut)}
 .round{width:46px;height:46px;border-radius:50%;background:var(--card);display:grid;place-items:center;flex:none;box-shadow:0 1px 0 var(--bd)}
+a.homeapp{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}a.homeapp:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .hero{position:relative;margin:4px -18px 0;padding:10px 18px 0;min-height:200px}
 .hero .art{position:absolute;right:-30px;top:-40px;width:300px;height:260px;z-index:0;pointer-events:none}
 .h1{position:relative;z-index:1;font-size:44px;line-height:1.08;font-weight:500;letter-spacing:-.5px;margin:14px 0 18px}
@@ -264,6 +265,7 @@ car:'<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 1
 compass:'<circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2 6.4-6.4 2 2-6.4z"/>',
 cal:'<rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/>',
 bag:'<rect x="2" y="7" width="20" height="14" rx="3"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+allapps:'<rect x="4" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8"/>',
 sliders:'<path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.5"/><circle cx="10" cy="12" r="2.5"/><circle cx="18" cy="18" r="2.5"/>',
 copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
 eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
@@ -449,7 +451,7 @@ function copy(txt){if(!txt){toast('Nothing to copy yet');return}
  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(function(){toast('Copied')},fb);else fb()}
 var TABS=[['home','Home','home'],['bookings','Bookings','plane'],['plan','Plan','cal'],['explore','Explore','compass'],['ess','Essentials','bag']];
 function renderNav(){nav.innerHTML=TABS.map(function(t){return '<button data-tab="'+t[0]+'" class="'+(view.tab===t[0]?'on':'')+'" aria-label="'+t[1]+'">'+I(t[2])+'<span>'+t[1]+'</span></button>'}).join('')}
-function header(sub){return '<div class="top"><div class="av">'+esc((S.name||'F').charAt(0).toUpperCase())+'<small>SH</small></div><div class="hi"><b>Hello, '+esc(S.name||'Fee')+'</b><span>'+esc(sub)+'</span></div><button class="round" data-go="settings" aria-label="Settings">'+I('sliders')+'</button></div>'}
+function header(sub){return '<div class="top"><div class="av">'+esc((S.name||'F').charAt(0).toUpperCase())+'<small>SH</small></div><div class="hi"><b>Hello, '+esc(S.name||'Fee')+'</b><span>'+esc(sub)+'</span></div><a class="round homeapp" href="https://elfeefirdaus.github.io/" target="_self" aria-label="All apps" title="All apps">'+I('allapps')+'</a><button class="round" data-go="settings" aria-label="Settings">'+I('sliders')+'</button></div>'}
 function tripState(){var n=Date.now();if(n<DEPART)return 'before';if(n<=RETURN_ARR)return 'during';return 'after'}
 function pad(n){return (n<10?'0':'')+n}
 function acts(k){return (S.days[k]||[]).slice().sort(function(a,b){return (a.time||'99').localeCompare(b.time||'99')})}
